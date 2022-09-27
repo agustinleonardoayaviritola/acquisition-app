@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory;
+    protected $fillable=[
+        'user_id',
+        'name',
+        'amount',
+        'description',
+        'state',
+        'subgovernment_code',
+        'municipality_id',
+        'slug'
+
+    ];
+    public function baskets()
+    {
+        return $this->belongsToMany(Basket::class)->withDefault();
+    }
+
+}
