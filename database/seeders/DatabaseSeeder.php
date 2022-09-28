@@ -14,19 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->call(IdendityDocumentTypeSeeder::class);
         $this->call(RoleTableSeeder::class);
-        $this->call(GenderTableSeeder::class);
-        $this->call(ProfessionSeeder::class);
-        $this->call(BeneficiaryStateSeeder::class);
-        $this->call(LocationSeeder::class);
-        $this->call(SubgovernmentSeeder::class);
-        $this->call(SanLorenzoSeeder::class);
-        $this->call(BermejoSeeder::class);
-        $this->call(BeneficiaryBermejoSeeder::class);
-        $this->call(BeneficiarySanLorenzoSeeder::class);
-        $this->call(CredentialSeeder::class);
 /*         \App\Models\Beneficiary::factory(7263)->update();
         \App\Models\Beneficiary::factory()->update([
              'user_id' => 1

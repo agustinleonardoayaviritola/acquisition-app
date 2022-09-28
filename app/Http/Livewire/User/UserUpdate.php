@@ -48,8 +48,7 @@ class UserUpdate extends Component
         $this->user = User::where('slug', $slug)->firstOrFail();
     
         $this->person = Person::where('id', $this->user->person_id)->firstOrFail();
-        $this->documentperson = DocumentPerson::where('person_id', $this->person->id)->firstOrFail();
-
+    
         $this->roles = Role::all();
         if ($this->user) {
             //cargando datos del usuario
@@ -66,17 +65,7 @@ class UserUpdate extends Component
 
             $this->name = $this->person->name;
             $this->lastname = $this->person->lastname;
-            $this->address = $this->person->address;
-            $this->num_address = $this->person->num_address;
-            $this->date_birth = $this->person->date_birth;
         }
-        if ($this->documentperson) {
-            $this->document_number = $this->documentperson->document_number;
-            $this->document_issuance = $this->documentperson->document_issuance;
-            $this->document_supplement = $this->documentperson->document_supplement;
-        }
-
-
     }
 
     public function render()
@@ -87,7 +76,6 @@ class UserUpdate extends Component
         //restriccion person
         'name' => 'required|max:255|min:2',
         'lastname' => 'required|max:255|min:2',
-        'address' => 'nullable',
         //restriccion user
         'email' => 'unique:users|email',
         'password' => 'nullable',
@@ -123,15 +111,6 @@ class UserUpdate extends Component
 
                 'name' => $this->name,
                 'lastname' => $this->lastname,
-                'address' => $this->address,
-                'num_address' => $this->num_address,
-                'date_birth' => $this->date_birth,
-            ]);
-
-            $this->documentperson->update([
-                'document_number' => $this->document_number,
-                'document_issuance' => $this->document_issuance,
-                'document_supplement' => $this->document_supplement,
             ]);
 
         //Llamando Alerta

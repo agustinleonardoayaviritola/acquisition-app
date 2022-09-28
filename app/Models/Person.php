@@ -11,21 +11,9 @@ class Person extends Model
     protected $fillable = [
         'name',
         'lastname',
-        'address',
-        'num_address',
-        'date_birth',
-        'gender_id',
     ];
-    public function customer()
-    {
-        return $this->hasOne(Customer::class);
-    }
     public function user()
     {
         return $this->hasOne(User::class);
-    }
-    public function gender()
-    {
-        return $this->hasOne(Gender::class);
     }
 }

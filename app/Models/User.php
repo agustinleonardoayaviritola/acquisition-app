@@ -30,7 +30,6 @@ class User extends Authenticatable
         'slug',
         'password',
         'state',
-        'subgovernment_code',
     ];
 
     /**
