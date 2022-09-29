@@ -157,6 +157,11 @@
                                     request()->routeIs('user.update')">
                                     <i class="fa-solid fa-user"></i> Usuarios
                                 </x-a-sidenav>
+                                <x-a-sidenav href="{{ route('unit.dashboard') }}" :active="request()->routeIs('unit.dashboard') ||
+                                    request()->routeIs('unit.create') ||
+                                    request()->routeIs('unit.update')">
+                                    <i class="fa-solid fa-user"></i> Unidades
+                                </x-a-sidenav>
                                 <hr class="my-2">
 
                             </div>

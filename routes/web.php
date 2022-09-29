@@ -10,6 +10,10 @@ use App\Http\Livewire\User\UserCreate;
 use App\Http\Livewire\User\UserUpdate;
 use App\Http\Livewire\User\UserDashboard;
 
+use App\Http\Livewire\Unit\UnitCreate;
+use App\Http\Livewire\Unit\UnitUpdate;
+use App\Http\Livewire\Unit\UnitDashboard;
+
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
 use App\Http\Livewire\Setting\UpdateSetting;
@@ -46,4 +50,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('user', UserDashboard::class)->name('user.dashboard')->middleware('auth', 'role:superadmin|admin');
     Route::get('user-create', UserCreate::class)->name('user.create')->middleware('auth', 'role:superadmin|admin');
     Route::get('user-update/{slug}', UserUpdate::class)->name('user.update')->middleware('auth', 'role:superadmin|admin');
+    
+    Route::get('unit', UnitDashboard::class)->name('unit.dashboard')->middleware('auth', 'role:superadmin|admin');
+    Route::get('unit-create', UnitCreate::class)->name('unit.create')->middleware('auth', 'role:superadmin|admin');
+    Route::get('unit-update/{slug}', UnitUpdate::class)->name('unit.update')->middleware('auth', 'role:superadmin|admin');
 });
