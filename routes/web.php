@@ -14,11 +14,15 @@ use App\Http\Livewire\Unit\UnitCreate;
 use App\Http\Livewire\Unit\UnitUpdate;
 use App\Http\Livewire\Unit\UnitDashboard;
 
+use App\Http\Livewire\SupplierCategory\SupplierCategoryCreate;
+use App\Http\Livewire\SupplierCategory\SupplierCategoryUpdate;
+use App\Http\Livewire\SupplierCategory\SupplierCategoryDashboard;
+
+
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
 use App\Http\Livewire\Setting\UpdateSetting;
-
-
+use App\Models\SupplierCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +58,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('unit', UnitDashboard::class)->name('unit.dashboard')->middleware('auth', 'role:superadmin|admin');
     Route::get('unit-create', UnitCreate::class)->name('unit.create')->middleware('auth', 'role:superadmin|admin');
     Route::get('unit-update/{slug}', UnitUpdate::class)->name('unit.update')->middleware('auth', 'role:superadmin|admin');
+
+    Route::get('supplier-category', SupplierCategoryDashboard::class)->name('supplier-category.dashboard')->middleware('auth', 'role:superadmin|admin');
+    Route::get('supplier-category-create', SupplierCategoryCreate::class)->name('supplier-category.create')->middleware('auth', 'role:superadmin|admin');
+    Route::get('supplier-category-update/{slug}', SupplierCategoryUpdate::class)->name('supplier-category.update')->middleware('auth', 'role:superadmin|admin');
 });
