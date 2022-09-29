@@ -42,7 +42,7 @@
             <div class="mt-4 text-sm">
                 <label for="email"></i> Usuario</label>
             </div>
-            <x-jet-input type="text" placeholder="usuario" wire:model="email" class="mt-1 block w-full rounded-rm"
+            <x-jet-input type="text" placeholder="email" wire:model="email" class="mt-1 block w-full rounded-rm"
                 required />
             @error('email')
                 <p class="text-red-500 font-semibold my-2">

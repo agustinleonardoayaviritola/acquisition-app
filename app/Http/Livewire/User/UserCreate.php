@@ -18,7 +18,7 @@ class UserCreate extends Component
     public $lastname;
 
     // user
-    public $user;
+    public $email;
     public $password;
     public $state = 'ACTIVE';
 
@@ -42,7 +42,7 @@ class UserCreate extends Component
         'name' => 'required|max:255|min:2',
         'lastname' => 'required|max:255|min:2',
         //restriccion email
-        'email' => 'unique:emails|user',
+        'email' => 'unique:users|email',
         'password' => 'nullable',
         'state' => 'required',
     ];

@@ -56,7 +56,7 @@ class RoleTableSeeder extends Seeder
 
         $Admin = User::create([
             'person_id' => $persona->id,
-            'email' => 'ale13',
+            'email' => 'ales13@gmail.com',
             'state' => 'ACTIVE',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
