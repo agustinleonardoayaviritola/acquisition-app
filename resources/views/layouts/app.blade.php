@@ -185,6 +185,13 @@
                                     <i class="fa-solid fa-user"></i> Unidades Solicitante
                                 </x-a-sidenav>
                                 <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('order-type.dashboard') }}" :active="request()->routeIs('order-type.dashboard') ||
+                                    request()->routeIs('order-type.create') ||
+                                    request()->routeIs('order-type.update')">
+                                    <i class="fa-solid fa-user"></i> Tipos de Orden
+                                </x-a-sidenav>
+                                <hr class="my-2">
                             </div>
                         </div>
                     </div>
