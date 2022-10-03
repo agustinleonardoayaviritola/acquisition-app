@@ -22,6 +22,9 @@ use App\Http\Livewire\Supplier\SupplierCreate;
 use App\Http\Livewire\Supplier\SupplierUpdate;
 use App\Http\Livewire\Supplier\SupplierDashboard;
 
+use App\Http\Livewire\RequestingUnit\RequestingUnitCreate;
+use App\Http\Livewire\RequestingUnit\RequestingUnitUpdate;
+use App\Http\Livewire\RequestingUnit\RequestingUnitDashboard;
 
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
@@ -70,4 +73,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('supplier', SupplierDashboard::class)->name('supplier.dashboard')->middleware('auth', 'role:superadmin|admin');
     Route::get('supplier-create', SupplierCreate::class)->name('supplier.create')->middleware('auth', 'role:superadmin|admin');
     Route::get('supplier-update/{slug}', SupplierUpdate::class)->name('supplier.update')->middleware('auth', 'role:superadmin|admin');
+
+    Route::get('requesting-unit', RequestingUnitDashboard::class)->name('requesting-unit.dashboard')->middleware('auth', 'role:superadmin|admin');
+    Route::get('requesting-unit-create', RequestingUnitCreate::class)->name('requesting-unit.create')->middleware('auth', 'role:superadmin|admin');
+    Route::get('requesting-unit-update/{slug}', RequestingUnitUpdate::class)->name('requesting-unit.update')->middleware('auth', 'role:superadmin|admin');
 });

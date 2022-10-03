@@ -179,6 +179,12 @@
                                 </x-a-sidenav>
                                 <hr class="my-2">
 
+                                <x-a-sidenav href="{{ route('requesting-unit.dashboard') }}" :active="request()->routeIs('requesting-unit.dashboard') ||
+                                    request()->routeIs('requesting-unit.create') ||
+                                    request()->routeIs('requesting-unit.update')">
+                                    <i class="fa-solid fa-user"></i> Unidades Solicitante
+                                </x-a-sidenav>
+                                <hr class="my-2">
                             </div>
                         </div>
                     </div>
