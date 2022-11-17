@@ -17,7 +17,6 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class SupplierDataTable extends LivewireDatatable
 {
     use LivewireAlert;
-    public $exportable = true;
     public $model = Supplier::class;
 
     public function builder()
@@ -45,10 +44,11 @@ class SupplierDataTable extends LivewireDatatable
                 ->label('Categoria')
                 ->alignRight(),
 
-            Column::name('person.name')
-                ->searchable()
-                ->label('Responsable')
-                ->alignRight(),
+                Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
+                    return $name.' '.$lastname;
+                })
+                ->label('Responsable'),
+    
 
             Column::name('suppliers.name')
                 ->searchable()

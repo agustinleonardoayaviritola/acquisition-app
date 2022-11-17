@@ -16,22 +16,47 @@ class OrderDataTable extends LivewireDatatable
 {
     //Using de alert
     use LivewireAlert;
-
-    public $exportable = true;
     public $model = Unit::class;
 
 
     public function builder()
     {
-        return Order::query()->where('state', '!=', 'DELETED');
+        return Order::query()
+            ->where('orders.state', '!=', 'DELETED')
+            ->join('applicants', function ($join) {
+                $join->on('applicants.id', '=', 'orders.applicant_id');
+            })
+            ->join('suppliers', function ($join) {
+                $join->on('suppliers.id', '=', 'orders.supplier_id');
+            })
+            ->join('people', function ($join) {
+                $join->on('people.id', '=', 'suppliers.person_id');
+            })
+            ->join('people as person', function ($join) {
+                $join->on('person.id', '=', 'applicants.person_id');
+            });
     }
     public function columns()
     {
         return [
 
+            Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
+                return $name . ' ' . $lastname;
+            })
+                ->label('Solicitante'),
+
             Column::name('application_number')
                 ->searchable()
-                ->label('Número'),
+                ->label('NRO PRENUMERADO'),
+
+            Column::name('code')
+                ->searchable()
+                ->label('Nnr de Solicitud'),
+
+            Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
+                return $name . ' ' . $lastname;
+            })
+                ->label('Proveedor'),
 
             Column::name('total')
                 ->searchable()
@@ -41,13 +66,13 @@ class OrderDataTable extends LivewireDatatable
                 return view('components.datatables.state-data-table', ['state' => $state]);
             })
                 ->exportCallback(function ($state) {
-                    $state == 'ACTIVE' ? $state = 'ACTIVO' : $state = 'INACTIVO';
+                    $state == 'PENDIENTE' ? $state = 'PENDIENTE' : $state = 'ENTREGADO';
                     return (string) $state;
                 })
                 ->label('Estado')
                 ->filterable([
-                    'ACTIVE',
-                    'INACTIVE'
+                    'PENDIENTE',
+                    'ENTREGADO'
                 ]),
 
             Column::callback(['slug'], function ($slug) {
@@ -65,7 +90,6 @@ class OrderDataTable extends LivewireDatatable
             'icon' => 'warning',
             'position' =>  'center',
             'toast' =>  false,
-            'text' =>  $this->unitDeleted,
             'confirmButtonText' =>  'Si',
             'showConfirmButton' =>  true,
             'showCancelButton' => true,
@@ -76,10 +100,12 @@ class OrderDataTable extends LivewireDatatable
     // Listener para eliminar
     protected $listeners = [
         'confirmed',
+        
     ];
     //Funcion para confirmar la eliminacion
     public function confirmed()
     {
+        
         if ($this->unitDeleted) {
             //Asignando estado DELETED
             $this->unitDeleted->state = "DELETED";

@@ -3,12 +3,10 @@
 namespace App\Http\Livewire\Order;
 
 use App\Models\OrderType;
-use App\Models\OrderCode;
-use App\Models\RequestingUnit;
+use App\Models\Applicant;
 use App\Models\Supplier;
 use Livewire\Component;
 use App\Models\Order;
-use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -23,7 +21,7 @@ class OrderCreate extends Component
     public $delivery_time;
     public $observation;
     public $slug;
-    public $state = "ACTIVE";
+    public $state = "PENDIENTE";
     public $total;
 
     public $suppliers;
@@ -34,47 +32,40 @@ class OrderCreate extends Component
     public $order_type_id;
     public $order_type;
 
-    public $order_codes;
-    public $order_code_id;
-    public $order_code;
+    public $code;
 
-    public $requesting_units;
-    public $requesting_unit_id;
+    public $applicants;
+    public $applicant_id;
     public $requesting_unit;
 
-    public $cart;
-
-    public $cart_session_ = [];
 
     public function mount()
     {
         $this->suppliers = Supplier::all()->where('state', 'ACTIVE');
         $this->order_types = OrderType::all()->where('state', 'ACTIVE');
-        $this->order_codes = OrderCode::all()->where('state', 'ACTIVE');
-        $this->requesting_units = RequestingUnit::all()->where('state', 'ACTIVE');
+        $this->applicants = Applicant::all()->where('state', 'ACTIVE');
         //Limpiando carrito
-        session()->forget('cart');
 
-        //$this->cart_session_ = session()->get('cart');
+     
     }
     public function render()
     {
         return view('livewire.order.order-create');
     }
     protected $rules = [
+        'code' => 'required|max:100|min:2|unique:orders,code',
+        'application_number' => 'required|max:100|min:2|unique:orders,application_number',
         'state' => 'required',
     ];
     //Metodo que llama el formulario
     public function submit()
     {
-
-        //Funcion para validar mediante las reglas
         $this->validate();
         $this->order = Order::create([
             'supplier_id' => $this->supplier_id,
             'order_type_id' => $this->order_type_id,
-            'order_code_id' => $this->order_code_id,
-            'requesting_unit_id' => $this->requesting_unit_id,
+            'code' => $this->code,
+            'applicant_id' => $this->applicant_id,
             'application_number' => $this->application_number,
             'issue_date' => $this->issue_date,
             'delivery_time' => $this->delivery_time,
@@ -82,7 +73,7 @@ class OrderCreate extends Component
             'state' => $this->state,
             'total' => 0,
             'slug' => Str::uuid(),
-            'state' => 'ACTIVE',
+            'state' => 'PENDIENTE',
         ]);
 
         //Llamando a funcion para limpiar inputs
@@ -125,12 +116,8 @@ class OrderCreate extends Component
     {
         $this->order_types = OrderType::all();
     }
-    public function onChangeSelectOrderCodes()
+    public function onChangeSelectApplicants()
     {
-        $this->order_codes = OrderCode::all();
-    }
-    public function onChangeSelectRequestingUnits()
-    {
-        $this->requesting_units = RequestingUnit::all();
+        $this->applicants = Applicant::all();
     }
 }

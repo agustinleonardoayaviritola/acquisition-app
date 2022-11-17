@@ -59,60 +59,50 @@
             </div>
             {{-- end select order_type_id --}}
 
-            {{-- select order_code_id --}}
+             {{-- code --}}
+             <div class="mt-4 text-sm">
+                Nro de Solicitud de bienes materoales
+            </div>
+            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="text"
+                placeholder="Nro de Solicitud de bienes materoales" wire:model="code" class="mt-1 block w-full rounded-rm"
+                required />
+            @error('code')
+                <p class="text-red-500 font-semibold my-2">
+                    {{ $message }}
+                </p>
+            @enderror
+            {{-- end code --}}
+
+            {{-- select applicant_id --}}
             <div>
-                <x-jet-label class="mt-4 text-sm" for="order_code_id" value="{{ __('Código') }}" />
-                <select wire:model="order_code_id" wire:change="onChangeSelectOrderCodes"
+                <x-jet-label class="mt-4 text-sm" for="applicant_id" value="{{ __('Persona Solicitante') }}" />
+                <select wire:model="applicant_id" wire:change="onChangeSelectApplicants"
                     class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
                     required>
 
                     <option selected>(Seleccionar)</option>
-                    @forelse ($order_codes as $order_code)
-                        <option value="{{ $order_code->id }}">
-                            {{ $order_code->name }}</option>
+                    @forelse ($applicants as $applicant)
+                        <option value="{{ $applicant->id }}">
+                            {{ $applicant->person->name }}{{ " " }}{{ $applicant->person->lastname }}</option>
                     @empty
                         <option disabled>Sin registros</option>
                     @endforelse
                 </select>
 
-                @error('order_code_id')
+                @error('applicant_id')
                     <p class="text-red-500 font-semibold my-2">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
-            {{-- end select order_code_id --}}
-
-            {{-- select requesting_unit_id --}}
-            <div>
-                <x-jet-label class="mt-4 text-sm" for="requesting_unit_id" value="{{ __('Código') }}" />
-                <select wire:model="requesting_unit_id" wire:change="onChangeSelectRequestingUnits"
-                    class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
-                    required>
-
-                    <option selected>(Seleccionar)</option>
-                    @forelse ($requesting_units as $requesting_unit)
-                        <option value="{{ $requesting_unit->id }}">
-                            {{ $requesting_unit->name }}</option>
-                    @empty
-                        <option disabled>Sin registros</option>
-                    @endforelse
-                </select>
-
-                @error('requesting_unit_id')
-                    <p class="text-red-500 font-semibold my-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-            </div>
-            {{-- end select requesting_unit_id --}}
+            {{-- end select applicant_id --}}
 
             {{-- application_number --}}
             <div class="mt-4 text-sm">
-                Número de solicitud
+                Nro Prenumerado
             </div>
             <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="number"
-                placeholder="Número de solicitud" wire:model="application_number" class="mt-1 block w-full rounded-rm"
+                placeholder="Nro Prenumerado" wire:model="application_number" class="mt-1 block w-full rounded-rm"
                 required />
             @error('application_number')
                 <p class="text-red-500 font-semibold my-2">
@@ -151,8 +141,8 @@
             <div class="mt-4 text-sm">
                 Observación
             </div>
-            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="text" placeholder="Observación"
-                wire:model="observation" class="mt-1 block w-full rounded-rm" required />
+             <x-jet-input type="text" placeholder="Observación" wire:model="observation"
+                class="mt-1 block w-full rounded-rm" required/>
             @error('observation')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}
@@ -164,17 +154,17 @@
             <x-jet-label class="mt-4 text-sm" value="Estado" />
             <div class="mt-4 space-y-2">
                 <div class="flex items-center">
-                    <input wire:model="state" value="ACTIVE" type="radio"
+                    <input wire:model="state" value="PENDIENTE" type="radio"
                         class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
                     <label for="push_everything" class="ml-2 block text-sm font-medium text-gray-700">
-                        Activo
+                        PENDIENTE
                     </label>
                 </div>
                 <div class="flex items-center">
-                    <input wire:model="state" value="INACTIVE" type="radio"
+                    <input wire:model="state" value="ENTREGADO" type="radio"
                         class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
                     <label for="push_email" class="ml-2 block text-sm font-medium text-gray-700">
-                        Inactivo
+                        ENTREGADO
                     </label>
                 </div>
             </div>

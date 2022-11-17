@@ -17,8 +17,6 @@ class OrderCodeDataTable extends LivewireDatatable
 {
     //Using de alert
     use LivewireAlert;
-
-    public $exportable = true;
     public $model = OrderCode::class;
     
 

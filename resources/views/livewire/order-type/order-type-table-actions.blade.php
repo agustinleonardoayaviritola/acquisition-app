@@ -1,5 +1,5 @@
 <div class="flex space-x-1 justify-around">
-    @if (Auth::user()->hasAnyRole(['superadmin', 'admin']))
+    @if (Auth::user()->hasAnyRole(['admin']))
     {{-- edit --}}
     <a href="{{ route('order-type.update', $slug) }}"
         class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded-full">
@@ -10,7 +10,7 @@
     </a>
     {{-- end edit --}}
     @endif
-    @if (Auth::user()->hasAnyRole(['superadmin']))
+    @if (Auth::user()->hasAnyRole(['admin']))
     {{-- delet --}}
     <button wire:click="toastConfirmDelet('{{ $slug }}')"
         class="p-1 text-red-600 hover:bg-red-600 hover:text-white rounded-full">

@@ -18,51 +18,34 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
       
-        //ROLES
-        //SUPER ADMINISTRADOR
-        $rol_superadmin = new Role();
-        $rol_superadmin->name = 'superadmin';
-        $rol_superadmin->description = 'Super Administrator';
-        $rol_superadmin->save();
-
+        
         /// ADMIN
         $rol_admin = new Role();
         $rol_admin->name = 'admin';
-        $rol_admin->description = 'Administrator General';
+        $rol_admin->description = 'Usuario';
         $rol_admin->save();
 
-
-        //USER GENERAL
-        $rol_user = new Role();
-        $rol_user->name = 'user';
-        $rol_user->description = 'Usuario general';
-        $rol_user->save();
         
         
-        //ADMIN -SUB GOBERNACIÓN 
-        $rol_admin_subgobernacion = new Role();
-        $rol_admin_subgobernacion->name = 'subgobernacionadmin';
-        $rol_admin_subgobernacion->description = 'Administrador de subgobernacion';
-        $rol_admin_subgobernacion->save();
-
+ 
 
 
 
         //CREDENCIALES PARA DESARROLLADORES
         $persona = Person::create([
-            'name' => 'Alessandro',
-            'lastname' => 'Dominguez Selaes'  
+            'name' => 'Admnistrador',
+            'lastname' => 'Administrador'  
         ]);
 
         $Admin = User::create([
             'person_id' => $persona->id,
-            'email' => 'ales13@gmail.com',
+            'email' => 'administrador@adquisicion.com',
             'state' => 'ACTIVE',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
-            'password' => bcrypt('1234'),
+            'password' => bcrypt('4dm1n1str4d0r'),
             'remember_token' => Str::random(10),
         ]);
-        $Admin->roles()->attach($rol_superadmin);
+        $Admin->roles()->attach($rol_admin);
     }
 }

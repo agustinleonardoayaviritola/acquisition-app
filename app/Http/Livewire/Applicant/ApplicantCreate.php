@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Supplier;
+namespace App\Http\Livewire\Applicant;
 
 use Livewire\Component;
 use App\Models\Person;
-use App\Models\Supplier;
-use App\Models\SupplierCategory;
+use App\Models\Applicant;
+use App\Models\RequestingUnit;
 use App\Models\Telephone;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-
-class SupplierCreate extends Component
+class ApplicantCreate extends Component
 {
     use LivewireAlert;
 
@@ -23,7 +22,7 @@ class SupplierCreate extends Component
     public $person_id;
 
     //supplier
-    public $supplier_category_id;
+    public $requesting_unit_id;
     public $name_supplier;
     public $email;
     public $address;
@@ -32,27 +31,19 @@ class SupplierCreate extends Component
 
     public $person;
     public $telephone;
-    public $suppliercategories;
+    public $requestingunits;
 
     public function mount()
     {
-        $this->suppliercategories = SupplierCategory::all()->where('state', 'ACTIVE');
-    }
-
-    public function render()
-    {
-        return view('livewire.supplier.supplier-create');
+        $this->requestingunits = RequestingUnit::all()->where('state', 'ACTIVE');
     }
  
     //reglas para validacion
     protected $rules = [
-        'supplier_category_id' => 'required',
+        'requesting_unit_id' => 'required',
         'number' => 'required',
-        'name' => 'required|max:100|min:2|unique:suppliers,name',
+        'name' => 'required',
         'lastname' => 'required',
-        'name_supplier' => 'required',
-        'email' => 'required',
-        'address' => 'required',
         'state' => 'required',
 
     ];
@@ -76,12 +67,9 @@ class SupplierCreate extends Component
             'number' => $this->number,
             'state' => 'ACTIVE',
         ]);
-        Supplier::create([
+        Applicant::create([
             'person_id' => $this->person->id,
-            'supplier_category_id' => $this->supplier_category_id,
-            'name' => $this->name_supplier,
-            'email' => $this->email,
-            'address' => $this->address,
+            'requesting_unit_id' => $this->requesting_unit_id,
             'state' => $this->state,
             'slug' => Str::uuid(),
         ]);
@@ -106,17 +94,13 @@ class SupplierCreate extends Component
     {
         $this->name = "";
         $this->lastname = "";
-        $this->number = "";
         $this->person_id = "";
-        $this->supplier_category_id = "";
-        $this->name_supplier = "";
-        $this->email = "";
-        $this->address = "";
+        $this->requesting_unit_id = "";
     }
 
-    public function onChangeSelectSupplierCategories()
+    public function onChangeSelectRequistinUnit()
     {
-        $this->suppliercategories = SupplierCategory::all();
+        $this->requestingunits = RequestingUnit::all();
     }
 
     //Escuchadores para botones de alertas
@@ -124,9 +108,12 @@ class SupplierCreate extends Component
         'confirmed',
     ];
 
-    //Funcion que llama la alerta para redigir al dashboard
+    public function render()
+    {
+        return view('livewire.applicant.applicant-create');
+    }
     public function confirmed()
     {
-        return redirect()->route('supplier.dashboard');
+        return redirect()->route('applicant.dashboard');
     }
 }

@@ -17,7 +17,6 @@ class UnitDataTable extends LivewireDatatable
     //Using de alert
     use LivewireAlert;
 
-    public $exportable = true;
     public $model = Unit::class;
     
 

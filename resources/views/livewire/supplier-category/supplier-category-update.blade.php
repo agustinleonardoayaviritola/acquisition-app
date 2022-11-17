@@ -26,7 +26,7 @@
                 Descripción
             </div>
             <x-jet-input type="text" placeholder="Descripcion" wire:model="description"
-                class="mt-1 block w-full rounded-rm" required />
+                class="mt-1 block w-full rounded-rm" />
             @error('name')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}

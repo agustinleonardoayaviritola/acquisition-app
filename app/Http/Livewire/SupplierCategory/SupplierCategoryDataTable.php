@@ -19,8 +19,6 @@ class SupplierCategoryDataTable extends LivewireDatatable
 {
        //Using de alert
        use LivewireAlert;
-
-       public $exportable = true;
        public $model = Unit::class;
        
    
@@ -35,7 +33,11 @@ class SupplierCategoryDataTable extends LivewireDatatable
                Column::name('name')
                    ->searchable()
                   ->label('Nombre'),      
-   
+
+                Column::name('description')
+                  ->searchable()
+                 ->label('Descripcion'),
+
                Column::callback(['state'], function ($state) {
                    return view('components.datatables.state-data-table', ['state' => $state]);
                })

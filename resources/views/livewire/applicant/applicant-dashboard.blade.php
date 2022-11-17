@@ -1,14 +1,14 @@
 <div>
     <x-slot name="header">
          <div class="font-semibold text-xl text-gray-800 leading-tight">
-             Pedidos
+             Persona Solicitante
          </div>
      </x-slot>
 
  <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
      <div class="w-full flex justify-end space-x-2">
         @if (Auth::user()->hasAnyRole(['admin']))
-         <a href="{{ route('order.create') }}"
+         <a href="{{ route('applicant.create') }}"
              class="my-2 border-2 border-green-500 text-green-500 bg-white flex items-center rounded-full hover:bg-green-500 hover:text-white">
              <svg class="w-8 h-8 m-2" viewBox="0 0 20 20" fill="currentColor">
                  <path fill-rule="evenodd"
@@ -19,7 +19,7 @@
          @endif
      </div>
      <div class="m-5">
-         <livewire:order.order-data-table/>
+         <livewire:applicant.applicant-data-table/>
      </div>
  </div>
 

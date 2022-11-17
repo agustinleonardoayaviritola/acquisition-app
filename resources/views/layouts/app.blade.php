@@ -96,7 +96,7 @@
 
                 {{-- SUPER ADMIN --}}
 
-                @if (Auth::user()->hasAnyRole(['superadmin', 'admin', 'user']))
+                @if (Auth::user()->hasAnyRole(['admin', 'user']))
                     {{-- start settings --}}
                     <div @click.away="open = false" class="relative z-10" x-data="{ open: false }">
                         <a @click="open = !open"
@@ -131,26 +131,8 @@
                             x-transition:leave-end="transform opacity-0 scale-95"
                             class=" right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
                             <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-primary-800">
-                                @if (Auth::user()->hasAnyRole(['superadmin', 'admin']))
-                                    <x-a-sidenav
-                                        href="{{ route('setting.update', '5db32257-0105-46f6-8519-9759ea997cde') }}"
-                                        :active="request()->routeIs(
-                                            'setting.update',
-                                            '5db32257-0105-46f6-8519-9759ea997cde',
-                                        ) ||
-                                            request()->routeIs(
-                                                'setting.update',
-                                                '5db32257-0105-46f6-8519-9759ea997cde',
-                                            ) ||
-                                            request()->routeIs(
-                                                'setting.update',
-                                                '5db32257-0105-46f6-8519-9759ea997cde',
-                                            )">
-                                        <i class="fa-solid fa-gear"></i></i> Configuración
-                                    </x-a-sidenav>
-                                @endif
 
-                                
+
 
                                 <x-a-sidenav href="{{ route('user.dashboard') }}" :active="request()->routeIs('user.dashboard') ||
                                     request()->routeIs('user.create') ||
@@ -158,53 +140,9 @@
                                     <i class="fa-solid fa-user"></i> Usuarios
                                 </x-a-sidenav>
 
-                                <x-a-sidenav href="{{ route('unit.dashboard') }}" :active="request()->routeIs('unit.dashboard') ||
-                                    request()->routeIs('unit.create') ||
-                                    request()->routeIs('unit.update')">
-                                    <i class="fa-solid fa-user"></i> Unidades
-                                </x-a-sidenav>
-                                <hr class="my-2">
+                               
 
-                                <x-a-sidenav href="{{ route('supplier-category.dashboard') }}" :active="request()->routeIs('supplier-category.dashboard') ||
-                                    request()->routeIs('supplier-category.create') ||
-                                    request()->routeIs('supplier-category.update')">
-                                    <i class="fa-solid fa-user"></i> Categorias de Proveedores
-                                </x-a-sidenav>
-                                <hr class="my-2">
 
-                                <x-a-sidenav href="{{ route('supplier.dashboard') }}" :active="request()->routeIs('supplier.dashboard') ||
-                                    request()->routeIs('supplier.create') ||
-                                    request()->routeIs('supplier.update')">
-                                    <i class="fa-solid fa-user"></i> Proveedores
-                                </x-a-sidenav>
-                                <hr class="my-2">
-
-                                <x-a-sidenav href="{{ route('requesting-unit.dashboard') }}" :active="request()->routeIs('requesting-unit.dashboard') ||
-                                    request()->routeIs('requesting-unit.create') ||
-                                    request()->routeIs('requesting-unit.update')">
-                                    <i class="fa-solid fa-user"></i> Unidades Solicitante
-                                </x-a-sidenav>
-                                <hr class="my-2">
-
-                                <x-a-sidenav href="{{ route('order-type.dashboard') }}" :active="request()->routeIs('order-type.dashboard') ||
-                                    request()->routeIs('order-type.create') ||
-                                    request()->routeIs('order-type.update')">
-                                    <i class="fa-solid fa-user"></i> Tipos de Pedido
-                                </x-a-sidenav>
-                                <hr class="my-2">
-
-                                <x-a-sidenav href="{{ route('order-code.dashboard') }}" :active="request()->routeIs('order-code.dashboard') ||
-                                    request()->routeIs('order-code.create') ||
-                                    request()->routeIs('order-code.update')">
-                                    <i class="fa-solid fa-user"></i> Codigos de Pedido
-                                </x-a-sidenav>
-                                <hr class="my-2">
-
-                                <x-a-sidenav href="{{ route('order.dashboard') }}" :active="request()->routeIs('order.dashboard') ||
-                                    request()->routeIs('order.create')">
-                                    <i class="fa-solid fa-user"></i> Pedido
-                                </x-a-sidenav>
-                                <hr class="my-2">
                             </div>
                         </div>
                     </div>
@@ -212,8 +150,178 @@
                 @endif
                 {{-- END SUPER ADMIN --}}
 
-               
-                
+                @if (Auth::user()->hasAnyRole(['admin', 'user']))
+                    <div @click.away="open = false" class="relative z-10" x-data="{ open: false }">
+                        <a @click="open = !open"
+                            class="flex flex-row items-center content-between w-full px-4 py-2 mt-2 text-gray-500  text-sm font-semibold text-left bg-transparent rounded-full dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-primary-600 dark-mode:hover:bg-primary-600 md:block hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 ">
+                            <div class="w-full flex justify-between ">
+                                <div class="flex space-x-2 ">
+
+                                    <div class="flex h-full items-center ">
+                                        <span class="inline-block align-middle"><i class="fa-solid fa-layer-group"></i>
+                                            Pedidos
+                                    </div>
+
+                                </div>
+                                <div class="flex space-x-2 ">
+                                    <div class="flex h-full justify-center items-center">
+                                        <svg fill="currentColor" viewBox="0 0 20 20"
+                                            :class="{ 'rotate-180': open, 'rotate-0': !open }"
+                                            class="w-6 h-6 transition-transform duration-200 transform">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            class=" right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
+                            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-primary-800">
+
+                                <x-a-sidenav href="{{ route('unit.dashboard') }}" :active="request()->routeIs('unit.dashboard') ||
+                                    request()->routeIs('unit.create') ||
+                                    request()->routeIs('unit.update')">
+                                    <i class="fa-solid fa-layer-group"></i> Unidades
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('order-type.dashboard') }}" :active="request()->routeIs('order-type.dashboard') ||
+                                    request()->routeIs('order-type.create') ||
+                                    request()->routeIs('order-type.update')">
+                                    <i class="fa-solid fa-clipboard"></i> Tipos de Pedido
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('order.dashboard') }}" :active="request()->routeIs('order.dashboard') || request()->routeIs('order.create')">
+                                    <i class="fa-solid fa-dolly"></i> Pedido
+                                </x-a-sidenav>
+                                <hr class="my-2">
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @if (Auth::user()->hasAnyRole(['admin', 'user']))
+                    <div @click.away="open = false" class="relative z-10" x-data="{ open: false }">
+                        <a @click="open = !open"
+                            class="flex flex-row items-center content-between w-full px-4 py-2 mt-2 text-gray-500  text-sm font-semibold text-left bg-transparent rounded-full dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-primary-600 dark-mode:hover:bg-primary-600 md:block hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 ">
+                            <div class="w-full flex justify-between ">
+                                <div class="flex space-x-2 ">
+
+                                    <div class="flex h-full items-center ">
+                                        <span class="inline-block align-middle"><i
+                                                class="fa-solid fa-layer-group"></i>
+                                            Proveedores
+                                    </div>
+
+                                </div>
+                                <div class="flex space-x-2 ">
+                                    <div class="flex h-full justify-center items-center">
+                                        <svg fill="currentColor" viewBox="0 0 20 20"
+                                            :class="{ 'rotate-180': open, 'rotate-0': !open }"
+                                            class="w-6 h-6 transition-transform duration-200 transform">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            class=" right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
+                            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-primary-800">
+
+
+                                <x-a-sidenav href="{{ route('supplier-category.dashboard') }}" :active="request()->routeIs('supplier-category.dashboard') ||
+                                    request()->routeIs('supplier-category.create') ||
+                                    request()->routeIs('supplier-category.update')">
+                                    <i class="fa-solid fa-truck-fast"></i> Categorías de Proveedores
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('supplier.dashboard') }}" :active="request()->routeIs('supplier.dashboard') ||
+                                    request()->routeIs('supplier.create') ||
+                                    request()->routeIs('supplier.update')">
+                                    <i class="fa-solid fa-truck"></i></i> Proveedores
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @if (Auth::user()->hasAnyRole(['admin', 'user']))
+                    <div @click.away="open = false" class="relative z-10" x-data="{ open: false }">
+                        <a @click="open = !open"
+                            class="flex flex-row items-center content-between w-full px-4 py-2 mt-2 text-gray-500  text-sm font-semibold text-left bg-transparent rounded-full dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-primary-600 dark-mode:hover:bg-primary-600 md:block hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 ">
+                            <div class="w-full flex justify-between ">
+                                <div class="flex space-x-2 ">
+
+                                    <div class="flex h-full items-center ">
+                                        <span class="inline-block align-middle"><i
+                                                class="fa-solid fa-layer-group"></i>
+                                            Unidades Solicitante
+                                    </div>
+
+                                </div>
+                                <div class="flex space-x-2 ">
+                                    <div class="flex h-full justify-center items-center">
+                                        <svg fill="currentColor" viewBox="0 0 20 20"
+                                            :class="{ 'rotate-180': open, 'rotate-0': !open }"
+                                            class="w-6 h-6 transition-transform duration-200 transform">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            class=" right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
+                            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-primary-800">
+
+
+                                <x-a-sidenav href="{{ route('requesting-unit.dashboard') }}" :active="request()->routeIs('requesting-unit.dashboard') ||
+                                    request()->routeIs('requesting-unit.create') ||
+                                    request()->routeIs('requesting-unit.update')">
+                                    <i class="fa-solid fa-building-un"></i> Unidades Solicitante
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('applicant.dashboard') }}" :active="request()->routeIs('applicant.dashboard') ||
+                                    request()->routeIs('applicant.create') ||
+                                    request()->routeIs('applicant.update')">
+                                    <i class="fa-solid fa-people-carry-box"></i> Persona Solicitante
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <hr class=" my-2">
                 {{-- profile options --}}
                 <div @click.away="open = false" class="relative z-30" x-data="{ open: false }">
@@ -271,8 +379,7 @@
                         class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
                         <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-primary-800">
 
-                            <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-full dark-mode:bg-transparent dark-mode:hover:bg-primary-600 dark-mode:focus:bg-primary-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 "
-                                href="{{ route('profile.show') }}">Perfil</a>
+                        
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-full dark-mode:bg-transparent dark-mode:hover:bg-primary-600 dark-mode:focus:bg-primary-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 "

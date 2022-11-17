@@ -1,19 +1,19 @@
 <div>
     <x-slot name="header">
         <div class="font-semibold text-xl text-gray-800 leading-tight">
-            Registro de Entrega
+            Registro de Proveedor
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="pt-10 px-10">
-            <h1 class=" text-2xl font-bold">Agregar Nueva Entrega</h1>
+            <h1 class=" text-2xl font-bold">Agregar nuevo proveedor</h1>
         </div>
         <form wire:submit.prevent="submit" class="m-10 mt-0 p-4">
 
 
             {{-- select supplier_category_id --}}
             <div>
-                <x-jet-label class="mt-4 text-sm" for="supplier_category_id" value="{{ __('Categorias') }}" />
+                <x-jet-label class="mt-4 text-sm" for="supplier_category_id" value="{{ __('Categorías') }}" />
                 <select wire:model="supplier_category_id" wire:change="onChangeSelectSupplierCategories"
                     class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
                     required>
