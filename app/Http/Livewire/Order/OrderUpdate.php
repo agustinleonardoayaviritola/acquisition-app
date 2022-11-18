@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Order;
 use App\Models\Order;
 use Livewire\Component;
 use App\Models\Supplier;
+use App\Models\Person;
 use App\Models\Applicant;
 use App\Models\OrderType;
 use Illuminate\Support\Str;
@@ -51,7 +52,8 @@ class OrderUpdate extends Component
             $this->state = $this->order->state;
             $this->suppliers = Supplier::all()->where('state', 'ACTIVE');
             $this->order_types = OrderType::all()->where('state', 'ACTIVE');
-            $this->applicants = Applicant::all()->where('state', 'ACTIVE');
+            $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
+            ->where('applicants.state', 'ACTIVE')->get();
         }
     }
     protected $rules = [
@@ -97,6 +99,7 @@ class OrderUpdate extends Component
     }
     public function onChangeSelectApplicants()
     {
-        $this->applicants = Applicant::all();
+        $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
+        ->where('applicants.state', 'ACTIVE')->get();
     }
 }
