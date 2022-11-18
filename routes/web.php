@@ -26,6 +26,10 @@ use App\Http\Livewire\RequestingUnit\RequestingUnitCreate;
 use App\Http\Livewire\RequestingUnit\RequestingUnitUpdate;
 use App\Http\Livewire\RequestingUnit\RequestingUnitDashboard;
 
+use App\Http\Livewire\OrderType\OrderTypeCreate;
+use App\Http\Livewire\OrderType\OrderTypeUpdate;
+use App\Http\Livewire\OrderType\OrderTypeDashboard;
+
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
 use App\Http\Livewire\Setting\UpdateSetting;
@@ -77,4 +81,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('requesting-unit', RequestingUnitDashboard::class)->name('requesting-unit.dashboard')->middleware('auth', 'role:superadmin|admin');
     Route::get('requesting-unit-create', RequestingUnitCreate::class)->name('requesting-unit.create')->middleware('auth', 'role:superadmin|admin');
     Route::get('requesting-unit-update/{slug}', RequestingUnitUpdate::class)->name('requesting-unit.update')->middleware('auth', 'role:superadmin|admin');
+
+    Route::get('order-type', OrderTypeDashboard::class)->name('order-type.dashboard')->middleware('auth', 'role:superadmin|admin');
+    Route::get('ordert-ype-create', OrderTypeCreate::class)->name('order-type.create')->middleware('auth', 'role:superadmin|admin');
+    Route::get('order-type-update/{slug}', OrderTypeUpdate::class)->name('order-type.update')->middleware('auth', 'role:superadmin|admin');
 });
