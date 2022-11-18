@@ -35,6 +35,19 @@
             </div>
             {{-- end select unit_id --}}
 
+            {{-- name --}}
+               <div class="mt-4 text-sm">
+                <label for="name"></i>Nombre</label>
+            </div>
+            <x-jet-input type="text" step="any" placeholder="Nombre" wire:model="name"
+                class="mt-1 block w-full rounded-rm" required />
+            @error('name')
+                <p class="text-red-500 font-semibold my-2">
+                    {{ $message }}
+                </p>
+            @enderror
+            {{-- end name --}}
+
             {{-- quantity --}}
             <div class="mt-4 text-sm">
                 <label for="quantity"></i>Cantidad</label>
@@ -66,7 +79,7 @@
                 Descripción
             </div>
             <x-jet-input type="text" placeholder="Descripción" wire:model="description"
-                class="mt-1 block w-full rounded-rm" />
+                class="mt-1 block w-full rounded-rm" required/>
             @error('name')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}

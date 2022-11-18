@@ -17,20 +17,19 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('order_type_id');
-            $table->unsignedBigInteger('order_code_id');
-            $table->unsignedBigInteger('requesting_unit_id');
+            $table->string('code');
+            $table->unsignedBigInteger('applicant_id');
             $table->integer('application_number');
             $table->date('issue_date');
             $table->string('delivery_time');
             $table->string('observation');
             $table->decimal('total',8,2);
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->enum('state', ['PENDIENTE', 'ENTREGADO', 'DELETED'])->default('PENDIENTE');
             $table->uuid('slug')->unique();
             $table->timestamps();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDedelete('cascade');
             $table->foreign('order_type_id')->references('id')->on('order_types')->onDedelete('cascade');
-            $table->foreign('order_code_id')->references('id')->on('order_codes')->onDedelete('cascade');
-            $table->foreign('requesting_unit_id')->references('id')->on('requesting_units')->onDedelete('cascade');
+            $table->foreign('applicant_id')->references('id')->on('applicants')->onDedelete('cascade');
         });
     }
 

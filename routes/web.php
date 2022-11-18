@@ -34,12 +34,19 @@ use App\Http\Livewire\OrderCode\OrderCodeCreate;
 use App\Http\Livewire\OrderCode\OrderCodeUpdate;
 use App\Http\Livewire\OrderCode\OrderCodeDashboard;
 
+
 use App\Http\Livewire\Order\OrderCreate;
+use App\Http\Livewire\Order\OrderUpdate;
 use App\Http\Livewire\Order\OrderDashboard;
 
 use App\Http\Livewire\OrderDetail\OrderDetailCreate;
 use App\Http\Livewire\OrderDetail\OrderDetailUpdate;
 use App\Http\Livewire\OrderDetail\OrderDetailDashboard;
+
+
+use App\Http\Livewire\Applicant\ApplicantCreate;
+use App\Http\Livewire\Applicant\ApplicantUpdate;
+use App\Http\Livewire\Applicant\ApplicantDashboard;
 
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
@@ -70,42 +77,47 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         return view('livewire.dashboard.dashboard');
     })->name('dashboard');
 
-    ///superadmin
-    Route::get('setting-update/{slug}', UpdateSetting::class)->name('setting.update')->middleware('auth', 'role:superadmin|admin');
+    ///superrole:admin
+    Route::get('setting-update/{slug}', UpdateSetting::class)->name('setting.update')->middleware('auth', 'role:admin|role:admin');
     //Admin User
-    Route::get('user', UserDashboard::class)->name('user.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('user-create', UserCreate::class)->name('user.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('user-update/{slug}', UserUpdate::class)->name('user.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('user', UserDashboard::class)->name('user.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('user-create', UserCreate::class)->name('user.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('user-update/{slug}', UserUpdate::class)->name('user.update')->middleware('auth', 'role:admin|role:admin');
     
-    Route::get('unit', UnitDashboard::class)->name('unit.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('unit-create', UnitCreate::class)->name('unit.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('unit-update/{slug}', UnitUpdate::class)->name('unit.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('unit', UnitDashboard::class)->name('unit.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('unit-create', UnitCreate::class)->name('unit.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('unit-update/{slug}', UnitUpdate::class)->name('unit.update')->middleware('auth', 'role:admin|role:admin');
 
-    Route::get('supplier-category', SupplierCategoryDashboard::class)->name('supplier-category.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('supplier-category-create', SupplierCategoryCreate::class)->name('supplier-category.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('supplier-category-update/{slug}', SupplierCategoryUpdate::class)->name('supplier-category.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('supplier-category', SupplierCategoryDashboard::class)->name('supplier-category.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('supplier-category-create', SupplierCategoryCreate::class)->name('supplier-category.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('supplier-category-update/{slug}', SupplierCategoryUpdate::class)->name('supplier-category.update')->middleware('auth', 'role:admin|role:admin');
 
-    Route::get('supplier', SupplierDashboard::class)->name('supplier.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('supplier-create', SupplierCreate::class)->name('supplier.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('supplier-update/{slug}', SupplierUpdate::class)->name('supplier.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('supplier', SupplierDashboard::class)->name('supplier.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('supplier-create', SupplierCreate::class)->name('supplier.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('supplier-update/{slug}', SupplierUpdate::class)->name('supplier.update')->middleware('auth', 'role:admin|role:admin');
 
-    Route::get('requesting-unit', RequestingUnitDashboard::class)->name('requesting-unit.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('requesting-unit-create', RequestingUnitCreate::class)->name('requesting-unit.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('requesting-unit-update/{slug}', RequestingUnitUpdate::class)->name('requesting-unit.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('requesting-unit', RequestingUnitDashboard::class)->name('requesting-unit.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('requesting-unit-create', RequestingUnitCreate::class)->name('requesting-unit.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('requesting-unit-update/{slug}', RequestingUnitUpdate::class)->name('requesting-unit.update')->middleware('auth', 'role:admin|role:admin');
 
-    Route::get('order-type', OrderTypeDashboard::class)->name('order-type.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('ordert-ype-create', OrderTypeCreate::class)->name('order-type.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('order-type-update/{slug}', OrderTypeUpdate::class)->name('order-type.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('order-type', OrderTypeDashboard::class)->name('order-type.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('ordert-ype-create', OrderTypeCreate::class)->name('order-type.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-type-update/{slug}', OrderTypeUpdate::class)->name('order-type.update')->middleware('auth', 'role:admin|role:admin');
 
-    Route::get('order-code', OrderCodeDashboard::class)->name('order-code.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('order-code-create', OrderCodeCreate::class)->name('order-code.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('order-code-update/{slug}', OrderCodeUpdate::class)->name('order-code.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('order-code', OrderCodeDashboard::class)->name('order-code.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-code-create', OrderCodeCreate::class)->name('order-code.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-code-update/{slug}', OrderCodeUpdate::class)->name('order-code.update')->middleware('auth', 'role:admin|role:admin');
     
-    Route::get('order', OrderDashboard::class)->name('order.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('order-create', OrderCreate::class)->name('order.create')->middleware('auth', 'role:superadmin|admin');
+    Route::get('applicant', ApplicantDashboard::class)->name('applicant.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('applicant-create', ApplicantCreate::class)->name('applicant.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('applicant-update/{slug}', ApplicantUpdate::class)->name('applicant.update')->middleware('auth', 'role:admin|role:admin');
 
-    Route::get('order-detail/{slug}', OrderDetailDashboard::class)->name('order-detail.dashboard')->middleware('auth', 'role:superadmin|admin');
-    Route::get('order-detail-create/{slug}', OrderDetailCreate::class)->name('order-detail.create')->middleware('auth', 'role:superadmin|admin');
-    Route::get('order-detail-update/{slug}', OrderDetailUpdate::class)->name('order-detail.update')->middleware('auth', 'role:superadmin|admin');
+    Route::get('order', OrderDashboard::class)->name('order.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-create', OrderCreate::class)->name('order.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-update/{slug}', OrderUpdate::class)->name('order.update')->middleware('auth', 'role:admin|role:admin');
+
+    Route::get('order-detail/{slug}', OrderDetailDashboard::class)->name('order-detail.dashboard')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-detail-create/{slug}', OrderDetailCreate::class)->name('order-detail.create')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-detail-update/{slug}', OrderDetailUpdate::class)->name('order-detail.update')->middleware('auth', 'role:admin|role:admin');
 
 });

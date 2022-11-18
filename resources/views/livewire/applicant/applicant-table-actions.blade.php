@@ -1,7 +1,7 @@
 <div class="flex space-x-1 justify-around">
     @if (Auth::user()->hasAnyRole(['admin']))
     {{-- edit --}}
-    <a href="{{ route('supplier.update', $slug) }}"
+    <a href="{{ route('applicant.update', $slug) }}"
         class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded-full">
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path

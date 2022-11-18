@@ -17,7 +17,6 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class OrderDetailDataTable extends LivewireDatatable
 {
     use LivewireAlert;
-    public $exportable = true;
     public $model = OrderDetail::class;
 
     public $order_id;
@@ -36,7 +35,19 @@ class OrderDetailDataTable extends LivewireDatatable
         return [
             Column::name('quantity')
                 ->searchable()
-                ->label('Monto'),
+                ->label('Cantidad'),
+                
+            Column::name('price')
+                ->searchable()
+                ->label('Precio'),
+
+            Column::name('subtotal')
+                ->searchable()
+                ->label('Subtotal'),
+
+            Column::name('description')
+                ->searchable()
+                ->label('Descripcion'),
 
             Column::callback(['id', 'slug'], function ($id, $slug) {
                 return view('livewire.order-detail.order-detail-table-actions', ['id' => $id, 'slug' => $slug]);

@@ -16,6 +16,7 @@ class OrderDetailCreate extends Component
 
     public $units;
     public $unit_id;
+    public $name;
     public $quantity;
     public $price;
     public $subtotal;
@@ -33,7 +34,14 @@ class OrderDetailCreate extends Component
         return view('livewire.order-detail.order-detail-create');
     }
     protected $rules = [
-        'state' => 'required',
+        'unit_id' => 'required', 
+        'name' => 'required', 
+        'quantity' => 'required', 
+        'price' => 'required', 
+        'subtotal' => 'required', 
+        'description' => 'required', 
+        'state' => 'required', 
+        'slug' => 'required', 
     ];
     public function submit()
     {
@@ -48,6 +56,7 @@ class OrderDetailCreate extends Component
         OrderDetail::create([
             'order_id' =>  $this->order->id,
             'unit_id' => $this->unit_id,
+            'name' => $this->name,
             'quantity' => $this->quantity,
             'price' => $this->price,
             'subtotal' => $this->subtotal,
@@ -76,7 +85,14 @@ class OrderDetailCreate extends Component
     //Funcion para limpiar imputs
     public function cleanInputs()
     {
-        $this->amount = "";
+        $this->order_id = ''; 
+        $this->unit_id = ''; 
+        $this->name = ''; 
+        $this->quantity = ''; 
+        $this->price = ''; 
+        $this->subtotal = ''; 
+        $this->description = ''; 
+       
     } 
     
     //Escuchadores para botones de alertas

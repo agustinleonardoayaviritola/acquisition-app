@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <div class="font-semibold text-xl text-gray-800 leading-tight">
-            Actualizacion de usuarios
+            Actualización de usuarios
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -72,7 +72,7 @@
                     <option selected>(Seleccionar)</option>
                     @forelse ($roles as $rol)
                         <option value="{{ $rol->id }}">
-                            {{ $rol->name }}</option>
+                            {{ $rol->description }}</option>
                     @empty
                         <option disabled>Sin registros</option>
                     @endforelse

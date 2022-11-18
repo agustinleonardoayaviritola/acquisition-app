@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Livewire\Supplier;
+namespace App\Http\Livewire\Applicant;
 
 use Livewire\Component;
-use App\Models\SupplierCategory;
-use App\Models\Supplier;
+use App\Models\RequestingUnit;
+use App\Models\Applicant;
 use App\Models\Person;
 use App\Models\Telephone;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 
-class SupplierUpdate extends Component
+class ApplicantUpdate extends Component
 {
     use LivewireAlert;
     //persona
@@ -23,50 +23,41 @@ class SupplierUpdate extends Component
     public $person_id;
 
     //supplier
-    public $supplier_category_id;
-    public $name_supplier;
-    public $email;
-    public $address;
+    public $requesting_unit_id;
     public $slug;
 
     public $supplier;
     public $person;
     public $telephone;
-    public $suppliercategories;
+    public $requestingunits;
 
     public function render()
     {
-        return view('livewire.supplier.supplier-update');
+        return view('livewire.applicant.applicant-update');
     }
 
     public function mount($slug)
     {
-        $this->suppliercategories = SupplierCategory::all();
+        $this->requestingunits = RequestingUnit::all();
 
-        $this->supplier = Supplier::where('slug', $slug)->firstOrFail();
-        $this->person = Person::where('id', $this->supplier->person_id)->firstOrFail();
+        $this->applicant = Applicant::where('slug', $slug)->firstOrFail();
+        $this->person = Person::where('id', $this->applicant->person_id)->firstOrFail();
         $this->telephone = Telephone::where('person_id', $this->person->id)->firstOrFail();
 
-        if ($this->supplier) {
-            $this->supplier_category_id = $this->supplier->supplier_category_id;
+        if ($this->applicant) {
+            $this->requesting_unit_id = $this->applicant->requesting_unit_id;
             $this->name = $this->person->name;
             $this->lastname = $this->person->lastname;
             $this->number = $this->telephone->number;
-            $this->name_supplier = $this->supplier->name;
-            $this->email = $this->supplier->email;
-            $this->address = $this->supplier->address;
-            $this->state = $this->supplier->state;
+            $this->state = $this->applicant->state;
         }
     }
     //reglas para validacion
     protected $rules = [
-        'supplier_category_id' => 'required',
+        'requesting_unit_id' => 'required',
         'number' => 'required',
-        'name' => 'required|max:100|min:2|unique:suppliers,name',
+        'name' => 'required',
         'lastname' => 'required',
-        'name_supplier' => 'required',
-        'email' => 'required',
-        'address' => 'required',
         'state' => 'required',
 
     ];
@@ -74,7 +65,6 @@ class SupplierUpdate extends Component
     public function submit()
     {
         //Funcion para validar mediante las reglas
-        $this->rules['name'] = 'required|unique:suppliers,name,' . $this->supplier->id;
         $this->validate();
 
         $this->person->update([
@@ -87,12 +77,9 @@ class SupplierUpdate extends Component
             'number' => $this->number,
         ]);
 
-        $this->supplier->update([
+        $this->applicant->update([
             'person_id' => $this->person->id,
-            'supplier_category_id' => $this->supplier_category_id,
-            'name' => $this->name_supplier,
-            'email' => $this->email,
-            'address' => $this->address,
+            'requesting_unit_id' => $this->requesting_unit_id,
             'state' => $this->state,
         ]);
         
@@ -104,9 +91,9 @@ class SupplierUpdate extends Component
         
     }
 
-    public function onChangeSelectSupplierCategories()
+    public function onChangeSelectRequistinUnit()
     {
-        $this->suppliercategories = SupplierCategory::all();
+        $this->requestingunits = RequestingUnit::all();
     }
 
     protected $listeners = [

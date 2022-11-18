@@ -73,7 +73,7 @@
                     <option selected>(Seleccionar)</option>
                     @forelse ($roles as $rol)
                         <option value="{{ $rol->id }}">
-                            {{ $rol->name }}</option>
+                            {{ $rol->description }}</option>
                     @empty
                         <option disabled>Sin registros</option>
                     @endforelse
