@@ -157,12 +157,14 @@
                                     request()->routeIs('user.update')">
                                     <i class="fa-solid fa-user"></i> Usuarios
                                 </x-a-sidenav>
+
                                 <x-a-sidenav href="{{ route('unit.dashboard') }}" :active="request()->routeIs('unit.dashboard') ||
                                     request()->routeIs('unit.create') ||
                                     request()->routeIs('unit.update')">
                                     <i class="fa-solid fa-user"></i> Unidades
                                 </x-a-sidenav>
                                 <hr class="my-2">
+
                                 <x-a-sidenav href="{{ route('supplier-category.dashboard') }}" :active="request()->routeIs('supplier-category.dashboard') ||
                                     request()->routeIs('supplier-category.create') ||
                                     request()->routeIs('supplier-category.update')">
@@ -170,6 +172,19 @@
                                 </x-a-sidenav>
                                 <hr class="my-2">
 
+                                <x-a-sidenav href="{{ route('supplier.dashboard') }}" :active="request()->routeIs('supplier.dashboard') ||
+                                    request()->routeIs('supplier.create') ||
+                                    request()->routeIs('supplier.update')">
+                                    <i class="fa-solid fa-user"></i> Proveedores
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('requesting-unit.dashboard') }}" :active="request()->routeIs('requesting-unit.dashboard') ||
+                                    request()->routeIs('requesting-unit.create') ||
+                                    request()->routeIs('requesting-unit.update')">
+                                    <i class="fa-solid fa-user"></i> Unidades Solicitante
+                                </x-a-sidenav>
+                                <hr class="my-2">
                             </div>
                         </div>
                     </div>
