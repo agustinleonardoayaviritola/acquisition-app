@@ -189,14 +189,20 @@
                                 <x-a-sidenav href="{{ route('order-type.dashboard') }}" :active="request()->routeIs('order-type.dashboard') ||
                                     request()->routeIs('order-type.create') ||
                                     request()->routeIs('order-type.update')">
-                                    <i class="fa-solid fa-user"></i> Tipos de Orden
+                                    <i class="fa-solid fa-user"></i> Tipos de Pedido
                                 </x-a-sidenav>
                                 <hr class="my-2">
 
                                 <x-a-sidenav href="{{ route('order-code.dashboard') }}" :active="request()->routeIs('order-code.dashboard') ||
                                     request()->routeIs('order-code.create') ||
                                     request()->routeIs('order-code.update')">
-                                    <i class="fa-solid fa-user"></i> Codigos de Orden
+                                    <i class="fa-solid fa-user"></i> Codigos de Pedido
+                                </x-a-sidenav>
+                                <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('order.dashboard') }}" :active="request()->routeIs('order.dashboard') ||
+                                    request()->routeIs('order.create')">
+                                    <i class="fa-solid fa-user"></i> Pedido
                                 </x-a-sidenav>
                                 <hr class="my-2">
                             </div>

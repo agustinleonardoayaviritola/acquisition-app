@@ -1,12 +1,12 @@
 <div>
     <x-slot name="header">
         <div class="font-semibold text-xl text-gray-800 leading-tight">
-            Actualizacion de codigo de orden
+            Actualizacion de Codigo de Pedido
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="pt-10 px-10">
-            <h1 class=" text-2xl font-bold">Actualizar codigo de orden</h1>
+            <h1 class=" text-2xl font-bold">Actualizar codigo de pedido</h1>
         </div>
         <form wire:submit.prevent="submit" class="m-10 mt-0 p-4">
             {{-- name --}}
