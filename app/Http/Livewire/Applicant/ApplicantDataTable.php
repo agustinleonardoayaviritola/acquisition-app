@@ -41,7 +41,15 @@ class ApplicantDataTable extends LivewireDatatable
             Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
                 return $name.' '.$lastname;
             })
-            ->label('Solicitante'),    
+            ->label('Solicitante'),   
+            
+            Column::name('requesting_units.name')
+            ->searchable()
+            ->label('UNIDAD DE TRABAJO'),
+
+            Column::name('telephones.number')
+            ->searchable()
+            ->label('TELEFONO-CELULAR'), 
 
             Column::callback(['state'], function ($state) {
                 return view('components.datatables.state-data-table', ['state' => $state]);

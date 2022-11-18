@@ -64,7 +64,8 @@ class OrderCreate extends Component
         $this->order = Order::create([
             'supplier_id' => $this->supplier_id,
             'order_type_id' => $this->order_type_id,
-            'code' => $this->code,
+            'user_id' => Auth()->User()->id,
+            'code' => 'DF-'.$this->code,
             'applicant_id' => $this->applicant_id,
             'application_number' => $this->application_number,
             'issue_date' => $this->issue_date,

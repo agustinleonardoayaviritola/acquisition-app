@@ -29,6 +29,15 @@ class OrderDataTable extends LivewireDatatable
             ->join('suppliers', function ($join) {
                 $join->on('suppliers.id', '=', 'orders.supplier_id');
             })
+            ->join('users', function ($join) {
+                $join->on('users.id', '=', 'orders.user_id');
+            })
+            ->join('order_types', function ($join) {
+                $join->on('order_types.id', '=', 'orders.order_type_id');
+            })
+            ->join('people as user', function ($join) {
+                $join->on('user.id', '=', 'users.person_id');
+            })
             ->join('people', function ($join) {
                 $join->on('people.id', '=', 'suppliers.person_id');
             })
@@ -43,12 +52,17 @@ class OrderDataTable extends LivewireDatatable
             Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
             })
+                ->searchable()
                 ->label('Solicitante'),
 
             Column::name('application_number')
                 ->searchable()
                 ->label('NRO PRENUMERADO'),
 
+            Column::name('order_types.name')
+                ->searchable()
+                ->label('Tipo'),   
+                
             Column::name('code')
                 ->searchable()
                 ->label('Nnr de Solicitud'),
@@ -58,9 +72,18 @@ class OrderDataTable extends LivewireDatatable
             })
                 ->label('Proveedor'),
 
+            Column::callback(['user.name', 'user.lastname'], function ($name, $lastname) {
+                    return $name . ' ' . $lastname;
+                })
+                    ->label('Usuario'),
+
             Column::name('total')
                 ->searchable()
                 ->label('Total'),
+
+            Column::name('observation')
+                ->searchable()
+                ->label('Observación'),
 
             Column::callback(['state'], function ($state) {
                 return view('components.datatables.state-data-table', ['state' => $state]);
@@ -74,7 +97,11 @@ class OrderDataTable extends LivewireDatatable
                     'PENDIENTE',
                     'ENTREGADO'
                 ]),
-
+            DateColumn::name('orders.created_at')
+                ->filterable()
+                ->label('Fecha de registro')
+                
+                ->format('d/m/Y'),
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.order.order-table-actions', ['slug' => $slug]);
             })->label('Opciones')
@@ -100,12 +127,10 @@ class OrderDataTable extends LivewireDatatable
     // Listener para eliminar
     protected $listeners = [
         'confirmed',
-        
     ];
     //Funcion para confirmar la eliminacion
     public function confirmed()
     {
-        
         if ($this->unitDeleted) {
             //Asignando estado DELETED
             $this->unitDeleted->state = "DELETED";

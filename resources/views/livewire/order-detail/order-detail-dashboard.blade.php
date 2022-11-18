@@ -6,7 +6,7 @@
     </x-slot>
     <div class=" max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="w-full flex justify-start space-x-2 container bg-white">
-            <div class="my-2 mx-4">
+            <div class="my-2 mx-4" wire:poll.1000ms>
                 <h1 class="text-lg opacity-50">Información de pedido</h1>
                 <h1 class="text-2xl">Número: {{ $order->application_number }}</h1>
                 <h2 class="text-xl font-bold">Total: {{ $order->total }}</h2>
