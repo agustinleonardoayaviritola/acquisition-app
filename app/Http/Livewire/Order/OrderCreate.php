@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Order;
 
 use App\Models\OrderType;
 use App\Models\Applicant;
+use App\Models\Person;
 use App\Models\Supplier;
 use Livewire\Component;
 use App\Models\Order;
@@ -43,10 +44,9 @@ class OrderCreate extends Component
     {
         $this->suppliers = Supplier::all()->where('state', 'ACTIVE');
         $this->order_types = OrderType::all()->where('state', 'ACTIVE');
-        $this->applicants = Applicant::all()->where('state', 'ACTIVE');
-        //Limpiando carrito
-
-     
+        $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
+        ->where('applicants.state', 'ACTIVE')->get();
+        
     }
     public function render()
     {

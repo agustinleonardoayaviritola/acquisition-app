@@ -25,12 +25,6 @@ class RoleTableSeeder extends Seeder
         $rol_admin->description = 'Usuario';
         $rol_admin->save();
 
-        
-        
- 
-
-
-
         //CREDENCIALES PARA DESARROLLADORES
         $persona = Person::create([
             'name' => 'Alessandro',
@@ -59,7 +53,7 @@ class RoleTableSeeder extends Seeder
             'state' => 'ACTIVE',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
-            'password' => bcrypt('agustin'),
+            'password' => bcrypt('admin'),
             'remember_token' => Str::random(10),
         ]);
         $Admin2->roles()->attach($rol_admin);

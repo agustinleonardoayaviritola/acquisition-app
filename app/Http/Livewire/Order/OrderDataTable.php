@@ -52,20 +52,18 @@ class OrderDataTable extends LivewireDatatable
             Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
             })
-                ->searchable()
                 ->label('Solicitante'),
 
             Column::name('application_number')
                 ->searchable()
-                ->label('NRO PRENUMERADO'),
+                ->label('Nº Prenumerado'),
 
             Column::name('order_types.name')
-                ->searchable()
                 ->label('Tipo'),   
                 
             Column::name('code')
                 ->searchable()
-                ->label('Nnr de Solicitud'),
+                ->label('Nº de Solicitud'),
 
             Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
@@ -78,11 +76,9 @@ class OrderDataTable extends LivewireDatatable
                     ->label('Usuario'),
 
             Column::name('total')
-                ->searchable()
                 ->label('Total'),
 
             Column::name('observation')
-                ->searchable()
                 ->label('Observación'),
 
             Column::callback(['state'], function ($state) {

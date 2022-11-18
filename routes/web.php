@@ -33,6 +33,7 @@ use App\Http\Livewire\OrderType\OrderTypeDashboard;
 use App\Http\Livewire\Order\OrderCreate;
 use App\Http\Livewire\Order\OrderUpdate;
 use App\Http\Livewire\Order\OrderDashboard;
+use App\Http\Livewire\Order\OrderPrint;
 
 use App\Http\Livewire\OrderDetail\OrderDetailCreate;
 use App\Http\Livewire\OrderDetail\OrderDetailUpdate;
@@ -106,9 +107,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('order', OrderDashboard::class)->name('order.dashboard')->middleware('auth', 'role:admin|role:admin');
     Route::get('order-create', OrderCreate::class)->name('order.create')->middleware('auth', 'role:admin|role:admin');
     Route::get('order-update/{slug}', OrderUpdate::class)->name('order.update')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-detail-print/{slug}', OrderPrint::class)->name('order-detail.print')->middleware('auth', 'role:admin|role:admin');
+
 
     Route::get('order-detail/{slug}', OrderDetailDashboard::class)->name('order-detail.dashboard')->middleware('auth', 'role:admin|role:admin');
     Route::get('order-detail-create/{slug}', OrderDetailCreate::class)->name('order-detail.create')->middleware('auth', 'role:admin|role:admin');
     Route::get('order-detail-update/{slug}', OrderDetailUpdate::class)->name('order-detail.update')->middleware('auth', 'role:admin|role:admin');
+    Route::get('order-detail-update/{slug}', OrderDetailUpdate::class)->name('order-detail.update')->middleware('auth', 'role:admin|role:admin');
+
 
 });
