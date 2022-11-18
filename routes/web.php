@@ -30,6 +30,10 @@ use App\Http\Livewire\OrderType\OrderTypeCreate;
 use App\Http\Livewire\OrderType\OrderTypeUpdate;
 use App\Http\Livewire\OrderType\OrderTypeDashboard;
 
+use App\Http\Livewire\OrderCode\OrderCodeCreate;
+use App\Http\Livewire\OrderCode\OrderCodeUpdate;
+use App\Http\Livewire\OrderCode\OrderCodeDashboard;
+
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
 use App\Http\Livewire\Setting\UpdateSetting;
@@ -85,4 +89,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('order-type', OrderTypeDashboard::class)->name('order-type.dashboard')->middleware('auth', 'role:superadmin|admin');
     Route::get('ordert-ype-create', OrderTypeCreate::class)->name('order-type.create')->middleware('auth', 'role:superadmin|admin');
     Route::get('order-type-update/{slug}', OrderTypeUpdate::class)->name('order-type.update')->middleware('auth', 'role:superadmin|admin');
+
+    Route::get('order-code', OrderCodeDashboard::class)->name('order-code.dashboard')->middleware('auth', 'role:superadmin|admin');
+    Route::get('order-code-create', OrderCodeCreate::class)->name('order-code.create')->middleware('auth', 'role:superadmin|admin');
+    Route::get('order-code-update/{slug}', OrderCodeUpdate::class)->name('order-code.update')->middleware('auth', 'role:superadmin|admin');
 });

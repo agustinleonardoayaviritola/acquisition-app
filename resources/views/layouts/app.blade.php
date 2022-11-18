@@ -192,6 +192,13 @@
                                     <i class="fa-solid fa-user"></i> Tipos de Orden
                                 </x-a-sidenav>
                                 <hr class="my-2">
+
+                                <x-a-sidenav href="{{ route('order-code.dashboard') }}" :active="request()->routeIs('order-code.dashboard') ||
+                                    request()->routeIs('order-code.create') ||
+                                    request()->routeIs('order-code.update')">
+                                    <i class="fa-solid fa-user"></i> Codigos de Orden
+                                </x-a-sidenav>
+                                <hr class="my-2">
                             </div>
                         </div>
                     </div>
