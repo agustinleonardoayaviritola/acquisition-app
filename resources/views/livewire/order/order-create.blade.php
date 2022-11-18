@@ -141,7 +141,7 @@
             <div class="mt-4 text-sm">
                 Observación
             </div>
-             <x-jet-input type="text" placeholder="Observación" wire:model="observation"
+             <x-textarea placeholder="Observación" wire:model="observation"
                 class="mt-1 block w-full rounded-rm" required/>
             @error('observation')
                 <p class="text-red-500 font-semibold my-2">

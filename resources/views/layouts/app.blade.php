@@ -20,7 +20,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="https://kit.fontawesome.com/860d5b4aa4.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7df58b9547.js" crossorigin="anonymous"></script>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -105,7 +105,7 @@
                                 <div class="flex space-x-2 ">
 
                                     <div class="flex h-full items-center ">
-                                        <span class="inline-block align-middle"><i class="fa-solid fa-house"></i>
+                                        <span class="inline-block align-middle"><i class="fa-solid fa-sliders"></i>
                                             Administración</span>
                                     </div>
 
@@ -137,7 +137,7 @@
                                 <x-a-sidenav href="{{ route('user.dashboard') }}" :active="request()->routeIs('user.dashboard') ||
                                     request()->routeIs('user.create') ||
                                     request()->routeIs('user.update')">
-                                    <i class="fa-solid fa-user"></i> Usuarios
+                                    <i class="fa-solid fa-users-gear"></i> Usuarios
                                 </x-a-sidenav>
 
                                
@@ -158,7 +158,7 @@
                                 <div class="flex space-x-2 ">
 
                                     <div class="flex h-full items-center ">
-                                        <span class="inline-block align-middle"><i class="fa-solid fa-layer-group"></i>
+                                        <span class="inline-block align-middle"><i class="fa-solid fa-folder-tree"></i>
                                             Pedidos
                                     </div>
 
@@ -188,21 +188,20 @@
                                 <x-a-sidenav href="{{ route('unit.dashboard') }}" :active="request()->routeIs('unit.dashboard') ||
                                     request()->routeIs('unit.create') ||
                                     request()->routeIs('unit.update')">
-                                    <i class="fa-solid fa-layer-group"></i> Unidades
+                                    <i class="fa-solid fa-building-flag"></i> Unidades
                                 </x-a-sidenav>
                                 <hr class="my-2">
 
                                 <x-a-sidenav href="{{ route('order-type.dashboard') }}" :active="request()->routeIs('order-type.dashboard') ||
                                     request()->routeIs('order-type.create') ||
                                     request()->routeIs('order-type.update')">
-                                    <i class="fa-solid fa-clipboard"></i> Tipos de Pedido
+                                    <i class="fa-solid fa-truck-ramp-box"></i> Tipos de Pedido
                                 </x-a-sidenav>
                                 <hr class="my-2">
 
                                 <x-a-sidenav href="{{ route('order.dashboard') }}" :active="request()->routeIs('order.dashboard') || request()->routeIs('order.create')">
-                                    <i class="fa-solid fa-dolly"></i> Pedido
+                                    <i class="fa-solid fa-truck"></i> Pedido
                                 </x-a-sidenav>
-                                <hr class="my-2">
                             </div>
                         </div>
                     </div>
@@ -216,8 +215,7 @@
                                 <div class="flex space-x-2 ">
 
                                     <div class="flex h-full items-center ">
-                                        <span class="inline-block align-middle"><i
-                                                class="fa-solid fa-layer-group"></i>
+                                        <span class="inline-block align-middle"><i class="fa-solid fa-user-ninja"></i>
                                             Proveedores
                                     </div>
 
@@ -248,18 +246,15 @@
                                 <x-a-sidenav href="{{ route('supplier-category.dashboard') }}" :active="request()->routeIs('supplier-category.dashboard') ||
                                     request()->routeIs('supplier-category.create') ||
                                     request()->routeIs('supplier-category.update')">
-                                    <i class="fa-solid fa-truck-fast"></i> Categorías de Proveedores
+                                    <i class="fa-solid fa-arrows-down-to-people"></i> Categorías de Proveedores
                                 </x-a-sidenav>
                                 <hr class="my-2">
 
                                 <x-a-sidenav href="{{ route('supplier.dashboard') }}" :active="request()->routeIs('supplier.dashboard') ||
                                     request()->routeIs('supplier.create') ||
                                     request()->routeIs('supplier.update')">
-                                    <i class="fa-solid fa-truck"></i></i> Proveedores
+                                    <i class="fa-solid fa-people-group"></i> Proveedores
                                 </x-a-sidenav>
-                                <hr class="my-2">
-
-
                             </div>
                         </div>
                     </div>
@@ -273,8 +268,8 @@
                                 <div class="flex space-x-2 ">
 
                                     <div class="flex h-full items-center ">
-                                        <span class="inline-block align-middle"><i
-                                                class="fa-solid fa-layer-group"></i>
+                                        <span class="inline-block align-middle">
+                                            <i class="fa-solid fa-city"></i>
                                             Unidades Solicitante
                                     </div>
 
@@ -314,9 +309,6 @@
                                     request()->routeIs('applicant.update')">
                                     <i class="fa-solid fa-people-carry-box"></i> Persona Solicitante
                                 </x-a-sidenav>
-                                <hr class="my-2">
-
-
                             </div>
                         </div>
                     </div>
