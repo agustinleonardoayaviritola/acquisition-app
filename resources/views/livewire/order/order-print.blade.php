@@ -77,9 +77,13 @@
                                     @foreach ($orden_detail as $item)
                                     <tr class="border-b ">
                                         <td class="border-r min-w-full text-center">{{$item->quantity}}</td>
+                                        @if($unidad->id)
                                         @if($item->unit_id === $unidad->id)
                                         <td class="border-r min-w-full text-center">{{$unidad->name}}</td>
                                         @else
+                                        @endif
+                                        @else
+                                        <td class="border-r min-w-full text-center">sin datos</td>
                                         @endif
                                         <td class="border-r">
                                             {{$item->description}}
@@ -129,7 +133,11 @@
                                                 <tr class="">
                                                     <td align="center" class="border-r">
                                                         <p><strong>Reparticion Solicitante:</strong></p>
-                                                        nombre de la unidad
+                                                            {{$unit_applicant->name}}
+                                                            <br>
+                                                            {{$peson_applicant->name}} {{$peson_applicant->lastname}}
+                                                            <br>
+                                                            {{$applicant_telephone->number}}
                                                     </td>
                                                 </tr>
                                             </table>
@@ -144,6 +152,7 @@
                                     Los términos y plazos comenzarán a correr a partir del día siguiente hábil a aquel en que tenga lugar la notificación
                                     o publicación del acto y concluyen al final de la última hora del día de su vencimiento.
                                 </p>
+                                <strong class="font-bold">Registro por:</strong> {{$peson_user->name}} {{$peson_user->lastname}}
                             </div>
                         </div>
                     </div>

@@ -126,10 +126,7 @@ class OrderDataTable extends LivewireDatatable
     public function confirmed()
     {
         if ($this->unitDeleted) {
-            //Asignando estado DELETED
-            $this->unitDeleted->state = "DELETED";
-            //Guardando el registro
-            $this->unitDeleted->update();
+            $this->unitDeleted->delete();
         }
     }
 }
