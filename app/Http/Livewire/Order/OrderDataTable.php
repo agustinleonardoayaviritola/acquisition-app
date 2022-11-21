@@ -78,8 +78,6 @@ class OrderDataTable extends LivewireDatatable
             Column::name('total')
                 ->label('Total'),
 
-            Column::name('observation')
-                ->label('Observación'),
 
             Column::callback(['state'], function ($state) {
                 return view('components.datatables.state-data-table', ['state' => $state]);

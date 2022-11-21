@@ -78,7 +78,7 @@
             <div class="mt-4 text-sm">
                 Descripción
             </div>
-            <x-jet-input type="text" placeholder="Descripción" wire:model="description"
+            <x-textarea type="text" placeholder="Descripción" wire:model="description"
                 class="mt-1 block w-full rounded-rm" required/>
             @error('name')
                 <p class="text-red-500 font-semibold my-2">
