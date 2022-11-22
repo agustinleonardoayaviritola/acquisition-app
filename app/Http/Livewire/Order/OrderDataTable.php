@@ -26,6 +26,9 @@ class OrderDataTable extends LivewireDatatable
             ->join('applicants', function ($join) {
                 $join->on('applicants.id', '=', 'orders.applicant_id');
             })
+            ->join('requesting_units', function ($join) {
+                $join->on('requesting_units.id', '=', 'applicants.requesting_unit_id');
+            })
             ->join('suppliers', function ($join) {
                 $join->on('suppliers.id', '=', 'orders.supplier_id');
             })
@@ -49,21 +52,28 @@ class OrderDataTable extends LivewireDatatable
     {
         return [
 
+            Column::name('requesting_units.name')
+            ->searchable()
+            ->label('Unidad Solicitante'),
+
+            Column::name('order_types.name')
+            ->label('Tipo'),  
+
+            Column::name('code')
+            ->searchable()
+            ->label('Nº de Solicitud'),
+
+            Column::name('application_number')
+            ->searchable()
+            ->label('Nº Prenumerado'),
+
+            Column::name('total')
+            ->label('Total'),
+
             Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
             })
                 ->label('Solicitante'),
-
-            Column::name('application_number')
-                ->searchable()
-                ->label('Nº Prenumerado'),
-
-            Column::name('order_types.name')
-                ->label('Tipo'),   
-                
-            Column::name('code')
-                ->searchable()
-                ->label('Nº de Solicitud'),
 
             Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
@@ -74,10 +84,6 @@ class OrderDataTable extends LivewireDatatable
                     return $name . ' ' . $lastname;
                 })
                     ->label('Usuario'),
-
-            Column::name('total')
-                ->label('Total'),
-
 
             Column::callback(['state'], function ($state) {
                 return view('components.datatables.state-data-table', ['state' => $state]);

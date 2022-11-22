@@ -4,7 +4,7 @@
             Area de impresion
         </div>
     </x-slot>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">    
         <div wire:ignore class="justify-center border-dashed bg-white border-2 m-8 p-4">
             <div id="printableArea" class="m-8 mt-0 p-2">
                 <div class="flex flex-col">
@@ -59,7 +59,9 @@
                                         </td>
                                     </tr>
                                     <tr class="border-b">
-                                        <td class="border-r" colspan="5"><strong>Observación:</strong><br />{{$orden->observation}}</td>
+                                        <td class="border-r" colspan="5"><strong>Observación:</strong><br />
+                                        <x-textarea placeholder="Observación"  class="mt-1 block w-full rounded-rm"/>
+                                        </td>
                                     </tr>
                                     <tr class="border-b">
                                         <th class="border-r" colspan="5">DETALLE:</th>
@@ -76,19 +78,14 @@
                                     </tr>
                                     @foreach ($orden_detail as $item)
                                     <tr class="border-b ">
-                                        <td class="border-r min-w-full text-center">{{$item->quantity}}</td>
-                                        @if($unidad->id)
-                                        @if($item->unit_id === $unidad->id)
-                                        <td class="border-r min-w-full text-center">{{$unidad->name}}</td>
-                                        @else
-                                        @endif
-                                        @else
-                                        <td class="border-r min-w-full text-center">sin datos</td>
-                                        @endif
+                                        <td class="border-r min-w-full text-center">{{$item->cantidad}}</td>
+                                       
+                                        <td class="border-r min-w-full text-center">{{$item->unidad}}</td>
+
                                         <td class="border-r">
-                                            {{$item->description}}
+                                            {{$item->descripcion}}
                                         </td>
-                                        <td class="border-r min-w-full text-center"><?= number_format($item->price, 2, ',', '.') ?></td>
+                                        <td class="border-r min-w-full text-center"><?= number_format($item->precio, 2, ',', '.') ?></td>
                                         <td class="border-r min-w-full text-center"><?= number_format($item->subtotal, 2, ',', '.') ?></td>
                                     </tr>
                                     @endforeach
@@ -145,7 +142,8 @@
                                     </tr>
                                 </table>
                                 <p style="text-align: justify;">
-                                    <strong class="font-bold">NOTA:</strong> Si los proponentes no entregasen el producto o servicio en el tiempo establecido por la orden de compra u orden de trabajo,
+                                    <strong class="font-bold">NOTA:</strong> {{$orden->observation}}. <br>
+                                    Si los proponentes no entregasen el producto o servicio en el tiempo establecido por la orden de compra u orden de trabajo,
                                     seran pasibles a lo que establece el <strong>DS. 0956 Art. 2 Inc. j</strong>
                                 </p>
                                 <p style="text-align: justify;">
