@@ -12,6 +12,7 @@ use App\Models\Applicant;
 use App\Models\Unit;
 use App\Models\User;
 use App\Models\RequestingUnit;
+use App\Models\OrderType;
 use \NumberFormatter;
 class OrderPrint extends Component
 {
@@ -24,6 +25,8 @@ class OrderPrint extends Component
     public function mount($slug)
     {
         $this->orden = Order::where('slug', $slug)->firstOrFail();
+        $this->orden_type = OrderType::where('id', $this->orden->order_type_id)->firstOrFail();
+        
         $this->user = User::where('id', $this->orden->user_id)->firstOrFail();
         $this->peson_user = Person::where('id', $this->user->person_id)->firstOrFail();
 

@@ -17,7 +17,7 @@
                                             <img class="object-center object-fill h-26 w-86 -m-2" src="{{ asset('/images/logo-gobernacion.svg') }}" alt="">
                                         </th>
                                         <th colspan="2" align="center" valign="middle" class="border-r">
-                                            <h3>ORDEN DE COMPRA</h3>
+                                            <h3>ORDEN DE {{$orden_type->name}}</h3>
                                             <h4>FORM.: SAF - ODT - 05</h4>
                                         </th>
                                         <th colspan="2" valign="middle" class="border-r">
