@@ -36,7 +36,7 @@ class OrderDetailDataTable extends LivewireDatatable
             Column::name('quantity')
                 ->searchable()
                 ->label('Cantidad'),
-                
+
             Column::name('price')
                 ->searchable()
                 ->label('Precio'),
@@ -80,11 +80,8 @@ class OrderDetailDataTable extends LivewireDatatable
     {
         //dd($this->idDelet);
         if ($this->idDelet) {
-            //Asignando estado DELETED
-            $this->idDelet->state = "DELETED";
-            //Guardando el registro
             $this->updatetotal($this->idDelet);
-            $this->idDelet->update();
+            $this->idDelet->delete();
         }
     }
     public function updatetotal($idDelet)

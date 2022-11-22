@@ -1,10 +1,10 @@
 <div>
     <x-slot name="header">
         <div class="font-semibold text-xl text-gray-800 leading-tight">
-            Area de impresion
+            Área de impresión
         </div>
     </x-slot>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">    
+    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div wire:ignore class="justify-center border-dashed bg-white border-2 m-8 p-4">
             <div id="printableArea" class="m-8 mt-0 p-2">
                 <div class="flex flex-col">
@@ -60,7 +60,7 @@
                                     </tr>
                                     <tr class="border-b">
                                         <td class="border-r" colspan="5"><strong>Observación:</strong><br />
-                                        <x-textarea placeholder="Observación"  class="mt-1 block w-full rounded-rm"/>
+                                            {{$orden->observation}}
                                         </td>
                                     </tr>
                                     <tr class="border-b">
@@ -79,11 +79,11 @@
                                     @foreach ($orden_detail as $item)
                                     <tr class="border-b ">
                                         <td class="border-r min-w-full text-center">{{$item->cantidad}}</td>
-                                       
+
                                         <td class="border-r min-w-full text-center">{{$item->unidad}}</td>
 
                                         <td class="border-r">
-                                            {{$item->descripcion}}
+                                            <strong>{{$item->nombre}}:</strong> {{$item->descripcion}}
                                         </td>
                                         <td class="border-r min-w-full text-center"><?= number_format($item->precio, 2, ',', '.') ?></td>
                                         <td class="border-r min-w-full text-center"><?= number_format($item->subtotal, 2, ',', '.') ?></td>
@@ -114,7 +114,7 @@
                                                         <p>&nbsp;</p>
                                                         <p>&nbsp;</p>
                                                         <p>&nbsp;</p>
-                                                        
+
                                                         _______________________________<br />
                                                         DIRECTOR ADMINISTRATIVO
                                                     </td>

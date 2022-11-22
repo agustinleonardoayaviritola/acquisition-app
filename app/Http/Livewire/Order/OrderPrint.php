@@ -26,7 +26,7 @@ class OrderPrint extends Component
     {
         $this->orden = Order::where('slug', $slug)->firstOrFail();
         $this->orden_type = OrderType::where('id', $this->orden->order_type_id)->firstOrFail();
-        
+
         $this->user = User::where('id', $this->orden->user_id)->firstOrFail();
         $this->peson_user = Person::where('id', $this->user->person_id)->firstOrFail();
 
@@ -38,14 +38,13 @@ class OrderPrint extends Component
         $this->supplier = Supplier::where('id', $this->orden->supplier_id)->firstOrFail();
         $this->person = Person::where('id', $this->supplier->person_id)->firstOrFail();
         $this->telephone = Telephone::where('person_id', $this->person->id)->firstOrFail();
-        //$this->orden_detail = OrderDetail::where('order_id', $this->orden->id)->get();
 
         $this->orden_detail = OrderDetail::join('units', 'order_details.unit_id', '=', 'units.id')
         ->where('order_id', $this->orden->id)
-        ->get(['order_details.quantity AS cantidad', 'units.name AS unidad', 'order_details.description AS descripcion', 'order_details.price AS precio', 'order_details.subtotal AS subtotal']);
+        ->get(['order_details.quantity AS cantidad', 'units.name AS unidad', 'order_details.name AS nombre', 'order_details.description AS descripcion', 'order_details.price AS precio', 'order_details.subtotal AS subtotal']);
         $formatterES = new NumberFormatter("es", NumberFormatter::SPELLOUT);
         $this->literal = $formatterES->format($this->orden->total);
-        
+
     }
 
 

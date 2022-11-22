@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Order;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -46,18 +47,19 @@ class OrderDataTable extends LivewireDatatable
             })
             ->join('people as person', function ($join) {
                 $join->on('person.id', '=', 'applicants.person_id');
-            });
+            })->orderBy('orders.application_number', 'ASC');
     }
     public function columns()
     {
         return [
 
+            Column::index($this),
+
             Column::name('requesting_units.name')
-            ->searchable()
             ->label('Unidad Solicitante'),
 
             Column::name('order_types.name')
-            ->label('Tipo'),  
+            ->label('Tipo'),
 
             Column::name('code')
             ->searchable()
@@ -100,8 +102,8 @@ class OrderDataTable extends LivewireDatatable
             DateColumn::name('orders.created_at')
                 ->filterable()
                 ->label('Fecha de registro')
-                
                 ->format('d/m/Y'),
+
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.order.order-table-actions', ['slug' => $slug]);
             })->label('Opciones')
@@ -113,6 +115,7 @@ class OrderDataTable extends LivewireDatatable
     public function toastConfirmDelet($slug)
     {
         $this->unitDeleted = Order::where('slug', $slug)->first();
+        $this->details = OrderDetail::where('order_id', $this->unitDeleted->id)->get();
         $this->confirm(__('¿Estás seguro de que deseas eliminar el registro?'), [
             'icon' => 'warning',
             'position' =>  'center',
@@ -131,6 +134,13 @@ class OrderDataTable extends LivewireDatatable
     //Funcion para confirmar la eliminacion
     public function confirmed()
     {
+        if($this->details)
+        {
+            foreach ($this->details as $item)
+            {
+                $item->delete();
+            }
+        }
         if ($this->unitDeleted) {
             $this->unitDeleted->delete();
         }
