@@ -52,42 +52,39 @@ class OrderDataTable extends LivewireDatatable
     public function columns()
     {
         return [
-
-            Column::index($this),
-
-            Column::name('requesting_units.name')
-            ->label('Unidad Solicitante'),
-
-            Column::name('order_types.name')
-            ->label('Tipo'),
-
+            Column::name('application_number')
+            ->searchable()
+            ->label('Nº Prenumerado'),
+            
             Column::name('code')
             ->searchable()
             ->label('Nº de Solicitud'),
 
-            Column::name('application_number')
-            ->searchable()
-            ->label('Nº Prenumerado'),
+            Column::name('order_types.name')
+            ->label('Tipo'),
+
+            Column::name('requesting_units.name')
+            ->label('Unidad Solicitante'),
 
             Column::name('total')
             ->label('Total'),
 
-            Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
+/*             Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
             })
-                ->label('Solicitante'),
+                ->label('Solicitante'), */
 
-            Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
+/*             Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
                 return $name . ' ' . $lastname;
             })
-                ->label('Proveedor'),
+                ->label('Proveedor'), */
 
-            Column::callback(['user.name', 'user.lastname'], function ($name, $lastname) {
+/*             Column::callback(['user.name', 'user.lastname'], function ($name, $lastname) {
                     return $name . ' ' . $lastname;
                 })
-                    ->label('Usuario'),
+                    ->label('Usuario'), */
 
-            Column::callback(['state'], function ($state) {
+/*             Column::callback(['state'], function ($state) {
                 return view('components.datatables.state-data-table', ['state' => $state]);
             })
                 ->exportCallback(function ($state) {
@@ -98,10 +95,10 @@ class OrderDataTable extends LivewireDatatable
                 ->filterable([
                     'PENDIENTE',
                     'ENTREGADO'
-                ]),
+                ]), */
             DateColumn::name('orders.created_at')
                 ->filterable()
-                ->label('Fecha de registro')
+                ->label('Fecha Emisión')
                 ->format('d/m/Y'),
 
             Column::callback(['slug'], function ($slug) {
