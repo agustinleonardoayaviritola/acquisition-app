@@ -53,7 +53,7 @@ class OrderCreate extends Component
         return view('livewire.order.order-create');
     }
     protected $rules = [
-        'code' => 'required|max:100|min:2|unique:orders,code',
+        'code' => 'required|max:100|min:2',
         'application_number' => 'required|max:100|min:2|unique:orders,application_number',
         'state' => 'required',
     ];
@@ -65,7 +65,7 @@ class OrderCreate extends Component
             'supplier_id' => $this->supplier_id,
             'order_type_id' => $this->order_type_id,
             'user_id' => Auth()->User()->id,
-            'code' => 'DF-'.$this->code,
+            'code' =>  $this->code,
             'applicant_id' => $this->applicant_id,
             'application_number' => $this->application_number,
             'issue_date' => $this->issue_date,
