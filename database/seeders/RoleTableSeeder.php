@@ -34,7 +34,7 @@ class RoleTableSeeder extends Seeder
         $Admin = User::create([
             'person_id' => $persona->id,
             'email' => 'alessandro@adquisicion.com',
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
             'password' => bcrypt('12440781'),
@@ -50,7 +50,7 @@ class RoleTableSeeder extends Seeder
         $Admin2 = User::create([
             'person_id' => $agustin->id,
             'email' => 'agustin@adquisicion.com',
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
             'password' => bcrypt('admin'),
@@ -67,7 +67,7 @@ class RoleTableSeeder extends Seeder
         $usuario1 = User::create([
             'person_id' => $persona1->id,
             'email' => 'shirleycadena@adquisicion.com',
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
             'password' => bcrypt('shjocafe'),
@@ -83,7 +83,7 @@ class RoleTableSeeder extends Seeder
         $usuario2 = User::create([
             'person_id' => $persona2->id,
             'email' => 'christianfrontanilla@adquisicion.com',
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
             'password' => bcrypt('chgofrav'),
@@ -99,7 +99,7 @@ class RoleTableSeeder extends Seeder
         $usuario3 = User::create([
             'person_id' => $persona3->id,
             'email' => 'antonioCasso@adquisicion.com',
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
             'password' => bcrypt('anmacani'),
@@ -115,7 +115,7 @@ class RoleTableSeeder extends Seeder
         $usuario4 = User::create([
             'person_id' => $persona4->id,
             'email' => 'miriampalacios@adquisicion.com',
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             'email_verified_at' => now(),
             'slug' => Str::uuid(),
             'password' => bcrypt('mijapabe'),

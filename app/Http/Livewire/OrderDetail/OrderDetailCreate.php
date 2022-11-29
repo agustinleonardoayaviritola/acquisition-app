@@ -21,13 +21,13 @@ class OrderDetailCreate extends Component
     public $price;
     public $subtotal;
     public $description;
-    public $state = 'ACTIVE';
+    public $state = 'ACTIVO';
     public $slug;
     public $orderdetails;
     public function mount($slug)
     {
         $this->order = Order::where('slug', $slug)->firstOrFail();
-        $this->units = Unit::all()->where('state', 'ACTIVE');
+        $this->units = Unit::all()->where('state', 'ACTIVO');
     }
     public function render()
     {

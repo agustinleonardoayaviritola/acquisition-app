@@ -17,13 +17,14 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class SupplierDataTable extends LivewireDatatable
 {
     use LivewireAlert;
+    public $exportable = true;
     public $model = Supplier::class;
 
     public function builder()
     {
 
         return (Supplier::query()
-            ->where('suppliers.state', '!=', 'DELETED')
+            ->where('suppliers.state', '!=', 'ELIMINADO')
             ->join('people as person', function ($join) {
                 $join->on('person.id', '=', 'suppliers.person_id');
             })
@@ -44,40 +45,23 @@ class SupplierDataTable extends LivewireDatatable
                 ->label('Categoria')
                 ->alignRight(),
 
-                Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
+/*                 Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
                     return $name.' '.$lastname;
                 })
-                ->label('Responsable'),
+                ->label('Responsable'), */
     
 
             Column::name('suppliers.name')
                 ->searchable()
-                ->label('Empresa')
+                ->label('Proveedor')
                 ->alignRight(),
 
-            Column::name('email')
-                ->searchable()
-                ->label('Correo electrónico')
-                ->alignRight(),
 
             Column::name('telephones.number')
-                ->searchable()
                 ->label('Teléfono')
                 ->alignRight(),
                 
-            Column::name('address')
-                ->searchable()
-                ->label('Dirección')
-                ->alignRight(),
 
-            Column::callback(['state'], function ($state) {
-                return view('components.datatables.state-data-table', ['state' => $state]);
-            })
-                ->label('Estado')
-                ->filterable([
-                    'ACTIVE',
-                    'INACTIVE'
-                ]),
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.supplier.supplier-table-actions', ['slug' => $slug]);
             })->label('Opciones')
@@ -111,7 +95,7 @@ class SupplierDataTable extends LivewireDatatable
     {
         if ($this->idDelet) {
             $Supplier = Supplier::find($this->idDelet);
-            $Supplier->state = "DELETED";
+            $Supplier->state = "ELIMINADO";
             $Supplier->update();
         }
     }

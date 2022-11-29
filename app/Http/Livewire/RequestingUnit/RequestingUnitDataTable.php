@@ -16,12 +16,13 @@ class RequestingUnitDataTable extends LivewireDatatable
 {
      //Using de alert
      use LivewireAlert;
+     public $exportable = true;
      public $model = Unit::class;
      
  
      public function builder()
      {
-         return RequestingUnit::query()->where('state', '!=', 'DELETED');
+         return RequestingUnit::query()->where('state', '!=', 'ELIMINADO');
      }
      public function columns()
      {
@@ -35,13 +36,13 @@ class RequestingUnitDataTable extends LivewireDatatable
                  return view('components.datatables.state-data-table', ['state' => $state]);
              })
                  ->exportCallback(function ($state) {
-                     $state == 'ACTIVE' ? $state = 'ACTIVO' : $state = 'INACTIVO';
+                     $state == 'ACTIVO' ? $state = 'ACTIVO' : $state = 'INACTIVO';
                      return (string) $state;
                  })
                  ->label('Estado')
                  ->filterable([
-                     'ACTIVE',
-                     'INACTIVE'
+                     'ACTIVO',
+                     'INACTIVO'
                  ]),
  
              Column::callback(['slug'], function ($slug) {
@@ -77,7 +78,7 @@ class RequestingUnitDataTable extends LivewireDatatable
      {
         if ($this->idDelet) {
             $RequestingUnit = RequestingUnit::find($this->idDelet);
-            $RequestingUnit->state = "DELETED";
+            $RequestingUnit->state = "ELIMINADO";
             $RequestingUnit->update();
         }
      }

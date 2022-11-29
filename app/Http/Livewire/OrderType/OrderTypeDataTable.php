@@ -16,13 +16,13 @@ class OrderTypeDataTable extends LivewireDatatable
 {
        //Using de alert
        use LivewireAlert;
-
+       public $exportable = true;
        public $model = OrderType::class;
        
    
        public function builder()
        {
-           return OrderType::query()->where('state', '!=', 'DELETED');
+           return OrderType::query()->where('state', '!=', 'ELIMINADO');
        }
        public function columns()
        {
@@ -36,13 +36,13 @@ class OrderTypeDataTable extends LivewireDatatable
                    return view('components.datatables.state-data-table', ['state' => $state]);
                })
                    ->exportCallback(function ($state) {
-                       $state == 'ACTIVE' ? $state = 'ACTIVO' : $state = 'INACTIVO';
+                       $state == 'ACTIVO' ? $state = 'ACTIVO' : $state = 'INACTIVO';
                        return (string) $state;
                    })
                    ->label('Estado')
                    ->filterable([
-                       'ACTIVE',
-                       'INACTIVE'
+                       'ACTIVO',
+                       'INACTIVO'
                    ]),
    
                Column::callback(['slug'], function ($slug) {
@@ -77,7 +77,7 @@ class OrderTypeDataTable extends LivewireDatatable
        {
            if ($this->ordertypeDeleted) {
                //Asignando estado DELETED
-               $this->ordertypeDeleted->state = "DELETED";
+               $this->ordertypeDeleted->state = "ELIMINADO";
                //Guardando el registro
                $this->ordertypeDeleted->update();
            }

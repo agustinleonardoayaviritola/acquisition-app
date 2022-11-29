@@ -1,16 +1,17 @@
 <div>
-    @if ($state_baskets == 'ACTIVE')
+    @if ($state == 'ENTREGADO')
         <span
             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 uppercase">
-            ACTIVO
+            ENTREGADO
         </span>
     @endif
-    @if ($state_baskets == 'INACTIVE')
-        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 uppercase">
-            INACTIVO
+    @if ($state == 'PENDIENTE')
+        <span
+            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 uppercase">
+            PENDIENTE
         </span>
     @endif
-    @if ($state_baskets == 'DELETED')
+    @if ($state == 'ELIMINADO')
         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 uppercase">
             ELIMINADO
         </span>

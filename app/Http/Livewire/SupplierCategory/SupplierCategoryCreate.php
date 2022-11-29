@@ -15,7 +15,7 @@ class SupplierCategoryCreate extends Component
     //varibles para propiedades
     public $name;
     public $description;
-    public $state = "ACTIVE";
+    public $state = "ACTIVO";
     public $slug;
 
 

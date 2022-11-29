@@ -28,7 +28,7 @@ class OrderDetailDataTable extends LivewireDatatable
                 $join->on('orders.id', '=', 'order_details.order_id');
             })
             ->where('order_details.order_id',  $this->order_id)
-            ->where('order_details.state', '!=', 'DELETED'));
+            ->where('order_details.state', '!=', 'ELIMINADO'));
     }
     public function columns()
     {

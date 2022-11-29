@@ -42,10 +42,10 @@ class OrderCreate extends Component
 
     public function mount()
     {
-        $this->suppliers = Supplier::all()->where('state', 'ACTIVE');
-        $this->order_types = OrderType::all()->where('state', 'ACTIVE');
+        $this->suppliers = Supplier::all()->where('state', 'ACTIVO');
+        $this->order_types = OrderType::all()->where('state', 'ACTIVO');
         $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
-        ->where('applicants.state', 'ACTIVE')->get();
+        ->where('applicants.state', 'ACTIVO')->get();
         
     }
     public function render()

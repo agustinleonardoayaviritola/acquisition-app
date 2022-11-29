@@ -16,14 +16,14 @@ class ApplicantDataTable extends LivewireDatatable
 {
     //Using de alert
     use LivewireAlert;
-
+    public $exportable = true;
     public $model = Applicant::class;
     
 
     public function builder()
     {
         return Applicant::query()
-        ->where('applicants.state', '!=', 'DELETED')
+        ->where('applicants.state', '!=', 'ELIMINADO')
         ->join('people as person', function ($join) {
             $join->on('person.id', '=', 'applicants.person_id');
         })
@@ -55,13 +55,13 @@ class ApplicantDataTable extends LivewireDatatable
                 return view('components.datatables.state-data-table', ['state' => $state]);
             })
                 ->exportCallback(function ($state) {
-                    $state == 'ACTIVE' ? $state = 'ACTIVO' : $state = 'INACTIVO';
+                    $state == 'ACTIVO' ? $state = 'ACTIVO' : $state = 'INACTIVO';
                     return (string) $state;
                 })
                 ->label('Estado')
                 ->filterable([
-                    'ACTIVE',
-                    'INACTIVE'
+                    'ACTIVO',
+                    'INACTIVO'
                 ]),
 
             Column::callback(['slug'], function ($slug) {
@@ -96,7 +96,7 @@ class ApplicantDataTable extends LivewireDatatable
     {
         if ($this->applicantDeleted) {
             //Asignando estado DELETED
-            $this->applicantDeleted->state = "DELETED";
+            $this->applicantDeleted->state = "ELIMINADO";
             //Guardando el registro
             $this->applicantDeleted->update();
         }

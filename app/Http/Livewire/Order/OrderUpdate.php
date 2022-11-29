@@ -50,10 +50,10 @@ class OrderUpdate extends Component
             $this->delivery_time =$this->order->delivery_time;
             $this->observation =$this->order->observation;
             $this->state = $this->order->state;
-            $this->suppliers = Supplier::all()->where('state', 'ACTIVE');
-            $this->order_types = OrderType::all()->where('state', 'ACTIVE');
+            $this->suppliers = Supplier::all()->where('state', 'ACTIVO');
+            $this->order_types = OrderType::all()->where('state', 'ACTIVO');
             $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
-            ->where('applicants.state', 'ACTIVE')->get();
+            ->where('applicants.state', 'ACTIVO')->get();
         }
     }
     protected $rules = [
@@ -100,6 +100,6 @@ class OrderUpdate extends Component
     public function onChangeSelectApplicants()
     {
         $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
-        ->where('applicants.state', 'ACTIVE')->get();
+        ->where('applicants.state', 'ACTIVO')->get();
     }
 }

@@ -26,7 +26,7 @@ class ApplicantCreate extends Component
     public $name_supplier;
     public $email;
     public $address;
-    public $state = "ACTIVE";
+    public $state = "ACTIVO";
     public $slug;
 
     public $person;
@@ -35,7 +35,7 @@ class ApplicantCreate extends Component
 
     public function mount()
     {
-        $this->requestingunits = RequestingUnit::all()->where('state', 'ACTIVE');
+        $this->requestingunits = RequestingUnit::all()->where('state', 'ACTIVO');
     }
  
     //reglas para validacion
@@ -58,14 +58,14 @@ class ApplicantCreate extends Component
         $this->person = Person::create([
             'name' => $this->name,
             'lastname' => $this->lastname,
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
             //generar slug
             'slug' => Str::uuid(),
         ]);
         $this->telephone = Telephone::create([
             'person_id' => $this->person->id,
             'number' => $this->number,
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
         ]);
         Applicant::create([
             'person_id' => $this->person->id,

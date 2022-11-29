@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('person_id')->nullable();
             $table->unsignedBigInteger('requesting_unit_id')->nullable();
             $table->timestamps();
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();
             $table->foreign('person_id')->references('id')->on('people')->onDedelete('cascade');
             $table->foreign('requesting_unit_id')->references('id')->on('requesting_units')->onDedelete('cascade');

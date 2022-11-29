@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('supplier_category_id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('address');
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();
             $table->timestamps();
             $table->foreign('person_id')->references('id')->on('people')->onDedelete('cascade');

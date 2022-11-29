@@ -19,12 +19,13 @@ class SupplierCategoryDataTable extends LivewireDatatable
 {
        //Using de alert
        use LivewireAlert;
+       public $exportable = true;
        public $model = Unit::class;
        
    
        public function builder()
        {
-           return SupplierCategory::query()->where('state', '!=', 'DELETED');
+           return SupplierCategory::query()->where('state', '!=', 'ELIMINADO');
        }
        public function columns()
        {
@@ -42,13 +43,13 @@ class SupplierCategoryDataTable extends LivewireDatatable
                    return view('components.datatables.state-data-table', ['state' => $state]);
                })
                    ->exportCallback(function ($state) {
-                       $state == 'ACTIVE' ? $state = 'ACTIVO' : $state = 'INACTIVO';
+                       $state == 'ACTIVO' ? $state = 'ACTIVO' : $state = 'INACTIVO';
                        return (string) $state;
                    })
                    ->label('Estado')
                    ->filterable([
-                       'ACTIVE',
-                       'INACTIVE'
+                       'ACTIVO',
+                       'INACTIVO'
                    ]),
    
                Column::callback(['slug'], function ($slug) {
@@ -83,7 +84,7 @@ class SupplierCategoryDataTable extends LivewireDatatable
        {
            if ($this->unitDeleted) {
                //Asignando estado DELETED
-               $this->unitDeleted->state = "DELETED";
+               $this->unitDeleted->state = "ELIMINADO";
                //Guardando el registro
                $this->unitDeleted->update();
            }

@@ -7,10 +7,12 @@
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div wire:ignore class="justify-center border-dashed bg-white border-2 m-8 p-4">
             <div id="printableArea" class="m-8 mt-0 p-2">
+            
                 <div class="flex flex-col">
                     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="overflow-hidden">
+                           
                                 <table cellspacing="0" class="min-w-full border text-xs">
                                     <tr class="border-b border-r" >
                                         <th colspan="1" align="center" class="border-r">
@@ -59,9 +61,8 @@
                                         </td>
                                     </tr>
                                     <tr class="border-b">
-                                        <td class="border-r" colspan="5"><strong>Observación:</strong><br />
-                                            {{$orden->observation}}
-                                        </td>
+                                        <td class="border-r" colspan="5"><strong>Observación:</strong>
+                                        <br />{{$orden_type->description}}</td>
                                     </tr>
                                     <tr class="border-b">
                                         <th class="border-r" colspan="5">DETALLE:</th>
@@ -79,7 +80,7 @@
                                     @foreach ($orden_detail as $item)
                                     <tr class="border-b ">
                                         <td class="border-r min-w-full text-center">{{$item->cantidad}}</td>
-
+                                       
                                         <td class="border-r min-w-full text-center">{{$item->unidad}}</td>
 
                                         <td class="border-r">
@@ -89,6 +90,7 @@
                                         <td class="border-r min-w-full text-center"><?= number_format($item->subtotal, 2, ',', '.') ?></td>
                                     </tr>
                                     @endforeach
+
 
                                     <tr class="border-b">
                                         <td colspan="5" class="border-r" align="right">
@@ -114,7 +116,7 @@
                                                         <p>&nbsp;</p>
                                                         <p>&nbsp;</p>
                                                         <p>&nbsp;</p>
-
+                                                        
                                                         _______________________________<br />
                                                         DIRECTOR ADMINISTRATIVO
                                                     </td>
@@ -142,7 +144,7 @@
                                     </tr>
                                 </table>
                                 <p style="text-align: justify;">
-                                    <strong class="font-bold">NOTA:</strong> {{$orden->observation}}. <br>
+                                    <strong class="font-bold">NOTA:</strong> Habiéndose adjuntado los ítems citados en la descripción, agradecemos a Uds. enviarnos a nuestro Almacén en el plazo de entrega ofertado. La factura deberá detallar los ítems adjuntados y el número de la presente Orden de Compra; al NIT del Gobierno Autónomo Departamental de Tarija # 178928029.<br>
                                     Si los proponentes no entregasen el producto o servicio en el tiempo establecido por la orden de compra u orden de trabajo,
                                     seran pasibles a lo que establece el <strong>DS. 0956 Art. 2 Inc. j</strong>
                                 </p>
@@ -165,17 +167,12 @@
 </div>
 <script>
     function printDiv(divName) {
-        console.log('entrando');
         $("#btn_print").hide();
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
-
         document.body.innerHTML = printContents;
-
         window.print();
-
         document.body.innerHTML = originalContents;
-
         $("#btn_print").show();
     }
 </script>

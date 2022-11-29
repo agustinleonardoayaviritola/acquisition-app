@@ -22,7 +22,7 @@ class OrderDetailUpdate extends Component
 
     public function mount($slug)
     {
-        $this->units = Unit::all()->where('state', 'ACTIVE');
+        $this->units = Unit::all()->where('state', 'ACTIVO');
         $this->orderdetail = OrderDetail::where('slug', $slug)->firstOrFail();
         if ($this->orderdetail) {
             $this->unit_id = $this->orderdetail->unit_id;
@@ -69,7 +69,7 @@ class OrderDetailUpdate extends Component
         $this->order->total = 0;
         foreach ($this->orderdetails  as $valor) {
             //dd($valor);
-            if ($valor->state == 'ACTIVE') {
+            if ($valor->state == 'ACTIVO') {
                 $this->order->total = $this->order->total + $valor->subtotal;
             }
         }

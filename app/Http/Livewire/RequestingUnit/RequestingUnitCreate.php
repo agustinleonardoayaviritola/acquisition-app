@@ -12,7 +12,7 @@ class RequestingUnitCreate extends Component
     use LivewireAlert; 
     //varibles para propiedades
     public $name;
-    public $state = "ACTIVE";
+    public $state = "ACTIVO";
     public $slug;
 
     public function render()

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('requesting_units', function (Blueprint $table) {
             $table->id(); $table->string('name')->nullable();
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();
             $table->timestamps();
         });

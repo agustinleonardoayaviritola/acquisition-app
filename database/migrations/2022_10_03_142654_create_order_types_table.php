@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('order_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->string('description')->nullable();
+            $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();
             $table->timestamps();
         });

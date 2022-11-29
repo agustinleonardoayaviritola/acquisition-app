@@ -23,7 +23,7 @@ class OrderDataTable extends LivewireDatatable
     public function builder()
     {
         return Order::query()
-            ->where('orders.state', '!=', 'DELETED')
+            ->where('orders.state', '!=', 'ELIMINADO')
             ->join('applicants', function ($join) {
                 $join->on('applicants.id', '=', 'orders.applicant_id');
             })
