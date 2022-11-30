@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div wire:ignore class="justify-center border-dashed bg-white border-2 m-8 p-4">
             <div id="printableArea" class="m-8 mt-0 p-2">
-            
+            <script src="https://cdn.tailwindcss.com"></script>
                 <div class="flex flex-col">
                     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
