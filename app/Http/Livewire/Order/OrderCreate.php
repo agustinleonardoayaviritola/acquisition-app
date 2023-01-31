@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Order;
 
 use App\Models\OrderType;
-use App\Models\Applicant;
+use App\Models\RequestingUnit;
 use App\Models\Person;
 use App\Models\Supplier;
 use Livewire\Component;
@@ -35,8 +35,8 @@ class OrderCreate extends Component
 
     public $code;
 
-    public $applicants;
-    public $applicant_id;
+    public $requestingunits;
+    public $requestingunit_id;
     public $requesting_unit;
 
 
@@ -44,8 +44,8 @@ class OrderCreate extends Component
     {
         $this->suppliers = Supplier::all()->where('state', 'ACTIVO');
         $this->order_types = OrderType::all()->where('state', 'ACTIVO');
-        $this->applicants = Person::join('applicants', 'people.id', '=', 'applicants.person_id')
-        ->where('applicants.state', 'ACTIVO')->get();
+        $this->requestingunits = RequestingUnit::all()->where('state', 'ACTIVO');
+
         
     }
     public function render()
@@ -60,13 +60,14 @@ class OrderCreate extends Component
     //Metodo que llama el formulario
     public function submit()
     {
+
         $this->validate();
         $this->order = Order::create([
             'supplier_id' => $this->supplier_id,
             'order_type_id' => $this->order_type_id,
             'user_id' => Auth()->User()->id,
             'code' =>  $this->code,
-            'applicant_id' => $this->applicant_id,
+            'requesting_unit_id' => $this->requestingunit_id,
             'application_number' => $this->application_number,
             'issue_date' => $this->issue_date,
             'delivery_time' => $this->delivery_time,
@@ -109,16 +110,16 @@ class OrderCreate extends Component
     {
         return redirect()->route('order.dashboard');
     }
-    public function showInfoSupplier()
+/*     public function showInfoSupplier()
     {
         $this->suppliers = Supplier::all();
-    }
+    } */
     public function onChangeSelectOrderTypes()
     {
         $this->order_types = OrderType::all();
     }
-    public function onChangeSelectApplicants()
+/*     public function onChangeSelectApplicants()
     {
         $this->applicants = Applicant::all();
-    }
+    } */
 }

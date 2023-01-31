@@ -24,11 +24,9 @@ class OrderDataTable extends LivewireDatatable
     {
         return Order::query()
             ->where('orders.state', '!=', 'ELIMINADO')
-            ->join('applicants', function ($join) {
-                $join->on('applicants.id', '=', 'orders.applicant_id');
-            })
+            
             ->join('requesting_units', function ($join) {
-                $join->on('requesting_units.id', '=', 'applicants.requesting_unit_id');
+                $join->on('requesting_units.id', '=', 'orders.requesting_unit_id');
             })
             ->join('suppliers', function ($join) {
                 $join->on('suppliers.id', '=', 'orders.supplier_id');
@@ -41,12 +39,6 @@ class OrderDataTable extends LivewireDatatable
             })
             ->join('people as user', function ($join) {
                 $join->on('user.id', '=', 'users.person_id');
-            })
-            ->join('people', function ($join) {
-                $join->on('people.id', '=', 'suppliers.person_id');
-            })
-            ->join('people as person', function ($join) {
-                $join->on('person.id', '=', 'applicants.person_id');
             })->orderBy('orders.application_number', 'ASC');
     }
     public function columns()
@@ -63,21 +55,16 @@ class OrderDataTable extends LivewireDatatable
             Column::name('order_types.name')
             ->label('Tipo'),
 
+            DateColumn::name('orders.created_at')
+            ->searchable()
+            ->label('Fecha Emisión')
+            ->format('d/m/Y'),
+
             Column::name('requesting_units.name')
             ->label('Unidad Solicitante'),
 
             Column::name('total')
-            ->label('Total'),
-
-/*             Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
-                return $name . ' ' . $lastname;
-            })
-                ->label('Solicitante'), */
-
-/*             Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
-                return $name . ' ' . $lastname;
-            })
-                ->label('Proveedor'), */
+            ->label('Costo Total'),
 
 /*             Column::callback(['user.name', 'user.lastname'], function ($name, $lastname) {
                     return $name . ' ' . $lastname;
@@ -96,10 +83,7 @@ class OrderDataTable extends LivewireDatatable
                     'PENDIENTE',
                     'ENTREGADO'
                 ]), */
-            DateColumn::name('orders.created_at')
-                ->filterable()
-                ->label('Fecha Emisión')
-                ->format('d/m/Y'),
+
 
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.order.order-table-actions', ['slug' => $slug]);

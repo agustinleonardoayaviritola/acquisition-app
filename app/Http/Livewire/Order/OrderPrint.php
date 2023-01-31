@@ -30,10 +30,10 @@ class OrderPrint extends Component
         $this->user = User::where('id', $this->orden->user_id)->firstOrFail();
         $this->peson_user = Person::where('id', $this->user->person_id)->firstOrFail();
 
-        $this->applicant = Applicant::where('id', $this->orden->applicant_id)->firstOrFail();
-        $this->peson_applicant = Person::where('id', $this->applicant->person_id)->firstOrFail();
-        $this->unit_applicant = RequestingUnit::where('id', $this->applicant->requesting_unit_id)->firstOrFail();
-        $this->applicant_telephone = Telephone::where('person_id', $this->peson_applicant->id)->firstOrFail();
+        $this->applicant = RequestingUnit::where('id', $this->orden->requesting_unit_id)->firstOrFail();
+        //$this->peson_applicant = Person::where('id', $this->applicant->person_id)->firstOrFail();
+        $this->unit_applicant = RequestingUnit::where('id', $this->orden->requesting_unit_id)->firstOrFail();
+        //$this->applicant_telephone = Telephone::where('person_id', $this->peson_applicant->id)->firstOrFail();
 
         $this->supplier = Supplier::where('id', $this->orden->supplier_id)->firstOrFail();
         $this->person = Person::where('id', $this->supplier->person_id)->firstOrFail();

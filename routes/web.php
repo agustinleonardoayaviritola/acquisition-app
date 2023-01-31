@@ -40,9 +40,6 @@ use App\Http\Livewire\OrderDetail\OrderDetailUpdate;
 use App\Http\Livewire\OrderDetail\OrderDetailDashboard;
 
 
-use App\Http\Livewire\Applicant\ApplicantCreate;
-use App\Http\Livewire\Applicant\ApplicantUpdate;
-use App\Http\Livewire\Applicant\ApplicantDashboard;
 
 use App\Http\Livewire\Dashboard\Dashboard;
 //////
@@ -99,10 +96,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('order-type', OrderTypeDashboard::class)->name('order-type.dashboard')->middleware('auth', 'role:admin|role:admin');
     Route::get('ordert-ype-create', OrderTypeCreate::class)->name('order-type.create')->middleware('auth', 'role:admin|role:admin');
     Route::get('order-type-update/{slug}', OrderTypeUpdate::class)->name('order-type.update')->middleware('auth', 'role:admin|role:admin');
-
-    Route::get('applicant', ApplicantDashboard::class)->name('applicant.dashboard')->middleware('auth', 'role:admin|role:admin');
-    Route::get('applicant-create', ApplicantCreate::class)->name('applicant.create')->middleware('auth', 'role:admin|role:admin');
-    Route::get('applicant-update/{slug}', ApplicantUpdate::class)->name('applicant.update')->middleware('auth', 'role:admin|role:admin');
 
     Route::get('order', OrderDashboard::class)->name('order.dashboard')->middleware('auth', 'role:admin|role:admin');
     Route::get('order-create', OrderCreate::class)->name('order.create')->middleware('auth', 'role:admin|role:admin');

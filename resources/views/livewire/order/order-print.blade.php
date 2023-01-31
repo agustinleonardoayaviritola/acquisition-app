@@ -105,7 +105,7 @@
                                     <tr class="">
                                         <td colspan="5" class="border-r">
                                             <table class="min-w-full text-center" width="100%" border="0" align="center" cellspacing="0" cellspacing="0">
-                                                <tr class="">
+                                                <tr class="border-b">
                                                     <td width="33%" align="center" class="border-r">
                                                         <strong>Nro de Solicitud de bienes materiales: </strong>
                                                         <br>
@@ -133,10 +133,6 @@
                                                     <td align="center" class="border-r">
                                                         <p><strong>Reparticion Solicitante:</strong></p>
                                                             {{$unit_applicant->name}}
-                                                            <br>
-                                                            {{$peson_applicant->name}} {{$peson_applicant->lastname}}
-                                                            <br>
-                                                            {{$applicant_telephone->number}}
                                                     </td>
                                                 </tr>
                                             </table>

@@ -13,7 +13,7 @@ class Order extends Model
         'order_type_id',
         'user_id',
         'code',
-        'applicant_id',
+        'requesting_unit_id',
         'application_number',
         'issue_date',
         'delivery_time',
