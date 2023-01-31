@@ -49,7 +49,6 @@ class SupplierCreate extends Component
         'supplier_category_id' => 'required',
         'number' => 'required',
         'name' => 'required|max:100|min:2|unique:suppliers,name',
-        'lastname' => 'required',
         'name_supplier' => 'required',
         'address' => 'required',
         'state' => 'required',
@@ -65,7 +64,7 @@ class SupplierCreate extends Component
         //Creando registro
         $this->person = Person::create([
             'name' => $this->name,
-            'lastname' => $this->lastname,
+            //'lastname' => $this->lastname,
             'state' => 'ACTIVO',
             //generar slug
             'slug' => Str::uuid(),

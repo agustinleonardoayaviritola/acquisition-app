@@ -303,13 +303,6 @@
                                     request()->routeIs('requesting-unit.update')">
                                     <i class="fa-solid fa-building-un"></i> Unidades Solicitante
                                 </x-a-sidenav>
-                                <hr class="my-2">
-
-                                <x-a-sidenav href="{{ route('applicant.dashboard') }}" :active="request()->routeIs('applicant.dashboard') ||
-                                    request()->routeIs('applicant.create') ||
-                                    request()->routeIs('applicant.update')">
-                                    <i class="fa-solid fa-people-carry-box"></i> Persona Solicitante
-                                </x-a-sidenav>
                             </div>
                         </div>
                     </div>

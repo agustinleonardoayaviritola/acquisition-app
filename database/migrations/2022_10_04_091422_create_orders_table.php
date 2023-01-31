@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('order_type_id');
             $table->string('code')->nullable();
-            $table->unsignedBigInteger('applicant_id');
+            $table->unsignedBigInteger('requesting_unit_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('application_number')->nullable();
             $table->date('issue_date')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDedelete('cascade');
             $table->foreign('order_type_id')->references('id')->on('order_types')->onDedelete('cascade');
-            $table->foreign('applicant_id')->references('id')->on('applicants')->onDedelete('cascade');
+            $table->foreign('requesting_unit_id')->references('id')->on('requesting_units')->onDedelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDedelete('cascade');
         });
     }
