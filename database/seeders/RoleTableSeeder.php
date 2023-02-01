@@ -17,34 +17,32 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-      
-        
-        /// ADMIN
+
+
+        //SUPER ADMINISTRADOR
+        $rol_superadmin = new Role();
+        $rol_superadmin->name = 'superadmin';
+        $rol_superadmin->description = 'Administrator de todo el sistema';
+        $rol_superadmin->save();
+
+        /// USER
         $rol_admin = new Role();
         $rol_admin->name = 'admin';
         $rol_admin->description = 'Usuario';
         $rol_admin->save();
 
-        //CREDENCIALES PARA DESARROLLADORES
-        $persona = Person::create([
-            'name' => 'Alessandro',
-            'lastname' => 'Dominguez Selaes'  
-        ]);
+        //ADMIN
+        $admin = new Role();
+        $admin->name = 'lector';
+        $admin->description = 'Usuario visualizador';
+        $admin->save();
 
-        $Admin = User::create([
-            'person_id' => $persona->id,
-            'email' => 'alessandro@adquisicion.com',
-            'state' => 'ACTIVO',
-            'email_verified_at' => now(),
-            'slug' => Str::uuid(),
-            'password' => bcrypt('12440781'),
-            'remember_token' => Str::random(10),
-        ]);
-        $Admin->roles()->attach($rol_admin);
+
+        //CREDENCIALES PARA DESARROLLADORES
 
         $agustin = Person::create([
             'name' => 'Agustin',
-            'lastname' => 'Ayaviri Tolaba'  
+            'lastname' => 'Ayaviri Tolaba'
         ]);
 
         $Admin2 = User::create([
@@ -56,12 +54,47 @@ class RoleTableSeeder extends Seeder
             'password' => bcrypt('admin'),
             'remember_token' => Str::random(10),
         ]);
-        $Admin2->roles()->attach($rol_admin);
+        $Admin2->roles()->attach($rol_superadmin);
 
 
+
+        $Adalid = Person::create([
+            'name' => 'Adalid',
+            'lastname' => 'Arias Martinez'
+        ]);
+
+        $Admin2 = User::create([
+            'person_id' => $Adalid->id,
+            'email' => 'adalid@adquisicion.com',
+            'state' => 'ACTIVO',
+            'email_verified_at' => now(),
+            'slug' => Str::uuid(),
+            'password' => bcrypt('admin'),
+            'remember_token' => Str::random(10),
+        ]);
+        $Admin2->roles()->attach($rol_superadmin);
+
+        $Roger = Person::create([
+            'name' => 'Eddy Roger',
+            'lastname' => 'Calderon Caquiva'
+        ]);
+
+        $Admin2 = User::create([
+            'person_id' => $Roger->id,
+            'email' => 'roger@adquisicion.com',
+            'state' => 'ACTIVO',
+            'email_verified_at' => now(),
+            'slug' => Str::uuid(),
+            'password' => bcrypt('admin'),
+            'remember_token' => Str::random(10),
+        ]);
+        $Admin2->roles()->attach($rol_superadmin);
+
+
+        //CREDENCIALES PARA USUARIOS FINALES
         $persona1 = Person::create([
             'name' => 'Shirley Joana',
-            'lastname' => 'Cadena Fernandez'  
+            'lastname' => 'Cadena Fernandez'
         ]);
 
         $usuario1 = User::create([
@@ -77,7 +110,7 @@ class RoleTableSeeder extends Seeder
 
         $persona2 = Person::create([
             'name' => 'Christian Gonzalo',
-            'lastname' => 'Frontanilla Aviles'  
+            'lastname' => 'Frontanilla Aviles'
         ]);
 
         $usuario2 = User::create([
@@ -93,7 +126,7 @@ class RoleTableSeeder extends Seeder
 
         $persona3 = Person::create([
             'name' => 'Antonio Marcelo',
-            'lastname' => 'Casso Nieva'  
+            'lastname' => 'Casso Nieva'
         ]);
 
         $usuario3 = User::create([
@@ -109,7 +142,7 @@ class RoleTableSeeder extends Seeder
 
         $persona4 = Person::create([
             'name' => 'Miriam Janice',
-            'lastname' => 'Palacios Benites'  
+            'lastname' => 'Palacios Benites'
         ]);
 
         $usuario4 = User::create([

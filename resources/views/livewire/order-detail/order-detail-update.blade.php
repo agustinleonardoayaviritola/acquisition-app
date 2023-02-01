@@ -5,30 +5,31 @@
     </x-slot>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="pt-10 px-10">
-            <h1 class=" text-2xl font-bold">Actualizar categoría de proveedor</h1>
+            <h1 class=" text-2xl font-bold">Agregar Nueva Entrega</h1>
         </div>
         <form wire:submit.prevent="submit" class="m-10 mt-0 p-4">
+
+
             {{-- select unit_id --}}
-            <div>
-                <x-jet-label class="mt-4 text-sm" for="unit_id" value="{{ __('Unidad') }}" />
-                <select wire:model="unit_id" wire:change="showInfoUnit"
-                    class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
-                    required>
+            <div wire:ignore>
+                <div class="mt-4 text-sm">
+                    Unidad
+                </div>
+                <select id="select_units" wire:model="unit_id" style="width: 100%;">
 
                     <option selected>(Seleccionar)</option>
                     @forelse ($units as $unit)
-                        <option value="{{ $unit->id }}">
-                            {{ $unit->name }}</option>
+                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
                     @empty
                         <option disabled>Sin registros</option>
                     @endforelse
                 </select>
-
                 @error('unit_id')
                     <p class="text-red-500 font-semibold my-2">
                         {{ $message }}
                     </p>
                 @enderror
+
             </div>
             {{-- end select unit_id --}}
 
@@ -63,32 +64,13 @@
                 Descripción
             </div>
             <x-textarea type="text" placeholder="Descripción" wire:model="description"
-                class="mt-1 block w-full rounded-rm" />
+                class="mt-1 block w-full rounded-rm" required />
             @error('name')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}
                 </p>
             @enderror
             {{-- end descripcion --}}
-            {{-- state --}}
-            <x-jet-label class="mt-4 text-sm" value="Estado" />
-            <div class="mt-4 space-y-2">
-                <div class="flex items-center">
-                    <input wire:model="state" value="ACTIVO" type="radio"
-                        class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
-                    <label for="push_everything" class="ml-2 block text-sm font-medium text-gray-700">
-                        Activo
-                    </label>
-                </div>
-                <div class="flex items-center">
-                    <input wire:model="state" value="INACTIVO" type="radio"
-                        class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
-                    <label for="push_email" class="ml-2 block text-sm font-medium text-gray-700">
-                        Inactivo
-                    </label>
-                </div>
-            </div>
-            {{-- end state --}}
             {{-- all errors --}}
             @if ($errors->any())
                 <div class="bg-red-100 rounded-md text-red-500 p-2 font-semibold my-2">
@@ -101,9 +83,21 @@
             @endif
             {{-- end all errors --}}
             <x-jet-button type="submit"
-                class=" mt-4 text-sm h-12 w-full bg-primary-500 rounded-rm flex items-center justify-center">
+                class="mt-4 text-sm h-12 w-full bg-primary-500 rounded-rm flex items-center justify-center">
                 Guardar
             </x-jet-button>
         </form>
     </div>
 </div>
+@push('custom-scripts')
+    <script defer>
+        document.addEventListener('livewire:load', function() {
+            $('#select_units').select2();
+
+            $('#select_units').on('change', function() {
+                @this.set('unit_id', this.value);
+            });
+        });
+    </script>
+@endpush
+

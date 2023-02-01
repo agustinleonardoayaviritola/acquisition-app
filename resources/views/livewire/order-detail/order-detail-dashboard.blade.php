@@ -13,6 +13,7 @@
             </div>
         </div>
         <div class="w-full flex justify-end space-x-2 mt-4">
+            @if (Auth::user()->hasAnyRole(['admin','superadmin']))
             <a href="{{ route('order-detail.create', $order->slug) }}"
                 class="my-2  mx-4 border-2 border-green-500 text-green-500 bg-white flex items-center rounded-full hover:bg-green-500 hover:text-white">
                 <svg class="w-8 h-8 m-2" viewBox="0 0 20 20" fill="currentColor">
@@ -21,6 +22,7 @@
                         clip-rule="evenodd" />
                 </svg>
             </a>
+            @endif
         </div>
         <div class="m-5">
             <livewire:order-detail.order-detail-data-table :order_id="$order->id" />

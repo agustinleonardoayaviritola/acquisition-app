@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->string('name')->nullable();
             $table->integer('quantity')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->decimal('subtotal', 8, 2)->nullable();

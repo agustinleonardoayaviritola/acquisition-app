@@ -28,9 +28,6 @@ class SupplierDataTable extends LivewireDatatable
             ->join('people as person', function ($join) {
                 $join->on('person.id', '=', 'suppliers.person_id');
             })
-            ->join('telephones', function ($join) {
-                $join->on('person.id', '=', 'telephones.person_id');
-            })
             ->join('supplier_categories as category', function ($join) {
                 $join->on('category.id', '=', 'suppliers.supplier_category_id');
             }));
@@ -40,27 +37,15 @@ class SupplierDataTable extends LivewireDatatable
     {
         return [
 
+            Column::name('suppliers.name')
+            ->searchable()
+            ->label('Proveedor')
+            ->alignRight(),
+
             Column::name('category.name')
                 ->searchable()
                 ->label('Categoria')
                 ->alignRight(),
-
-/*                 Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
-                    return $name.' '.$lastname;
-                })
-                ->label('Responsable'), */
-    
-
-            Column::name('suppliers.name')
-                ->searchable()
-                ->label('Proveedor')
-                ->alignRight(),
-
-
-            Column::name('telephones.number')
-                ->label('Teléfono')
-                ->alignRight(),
-                
 
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.supplier.supplier-table-actions', ['slug' => $slug]);

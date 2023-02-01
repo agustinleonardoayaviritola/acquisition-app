@@ -1,26 +1,22 @@
 <?php
 
-namespace App\Http\Livewire\SupplierCategory;
+namespace App\Http\Livewire\OrderCode;
 
 use Livewire\Component;
-use App\Models\BeneficiaryState;
-use App\Models\SupplierCategory;
-
+use App\Models\OrderCode;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class SupplierCategoryCreate extends Component
+class OrderCodeCreate extends Component
 {
     use LivewireAlert;
     public $name;
     public $description;
     public $state = "ACTIVO";
     public $slug;
-
-
     public function render()
     {
-        return view('livewire.supplier-category.supplier-category-create');
+        return view('livewire.order-code.order-code-create');
     }
     protected $rules = [
         'name' => 'required|max:100|min:2|unique:supplier_categories,name',
@@ -29,15 +25,15 @@ class SupplierCategoryCreate extends Component
 
     public function submit()
     {
-
-
         $this->validate();
-        SupplierCategory::create([
+        OrderCode::create([
+            'user_id' => Auth()->User()->id,
             'name' => $this->name,
             'description' => $this->description,
             'state' => $this->state,
             'slug' => Str::uuid(),
         ]);
+
         $this->cleanInputs();
         $this->confirm('Registro creado correctamente', [
             'icon' => 'success',
@@ -50,19 +46,16 @@ class SupplierCategoryCreate extends Component
             'onConfirmed' => 'confirmed',
         ]);
     }
-
     public function cleanInputs()
     {
         $this->name = "";
         $this->description = "";
     }
-
     protected $listeners = [
         'confirmed',
     ];
-
     public function confirmed()
     {
-        return redirect()->route('supplier-category.dashboard');
+        return redirect()->route('order-code.dashboard');
     }
 }

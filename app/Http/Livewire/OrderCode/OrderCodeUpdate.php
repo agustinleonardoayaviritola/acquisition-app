@@ -1,32 +1,29 @@
 <?php
 
-namespace App\Http\Livewire\SupplierCategory;
+namespace App\Http\Livewire\OrderCode;
 
 use Livewire\Component;
-use App\Models\BeneficiaryState;
-use App\Models\SupplierCategory;
+use App\Models\OrderCode;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class SupplierCategoryUpdate extends Component
+class OrderCodeUpdate extends Component
 {
     use LivewireAlert;
-    public $Suppliercategory;
+    public $ordercode;
     public $name;
     public $description;
     public $state;
-
     public function render()
     {
-        return view('livewire.supplier-category.supplier-category-update');
+        return view('livewire.order-code.order-code-update');
     }
-
     public function mount($slug)
     {
-        $this->Suppliercategory = SupplierCategory::where('slug', $slug)->firstOrFail();
-        if ($this->Suppliercategory) {
-            $this->name = $this->Suppliercategory->name;
-            $this->description = $this->Suppliercategory->description;
-            $this->state = $this->Suppliercategory->state;
+        $this->ordercode = OrderCode::where('slug', $slug)->firstOrFail();
+        if ($this->ordercode) {
+            $this->name = $this->ordercode->name;
+            $this->description = $this->ordercode->description;
+            $this->state = $this->ordercode->state;
         }
     }
     protected $rules = [
@@ -35,24 +32,18 @@ class SupplierCategoryUpdate extends Component
     ];
     public function submit()
     {
-
-        //Funcion para validar mediante las reglas
         $this->rules['name'] = 'required|unique:supplier_categories,name,' . $this->Suppliercategory->id;
         $this->validate();
 
-        //Actualizar registro
         $this->Suppliercategory->update([
             'user_id' => Auth()->User()->id,
             'name' => $this->name,
             'description' => $this->description,
             'state' => $this->state,
         ]);
-        //Llamando Alerta
         $this->alert('success', 'Registro actualizado correctamente', [
             'toast' => true,
             'position' => 'top-end',
         ]);
-
-
     }
 }
