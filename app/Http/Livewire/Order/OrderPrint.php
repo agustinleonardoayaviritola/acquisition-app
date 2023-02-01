@@ -18,6 +18,16 @@ class OrderPrint extends Component
 {
     public $orden;
     public $literal;
+
+    public $orden_type;
+    public $user;
+    public $peson_user;
+    public $applicant;
+    public $unit_applicant;
+    public $supplier;
+    public $person;
+    public $telephone;
+    public $orden_detail;
     public function render()
     {
         return view('livewire.order.order-print');
@@ -37,11 +47,11 @@ class OrderPrint extends Component
 
         $this->supplier = Supplier::where('id', $this->orden->supplier_id)->firstOrFail();
         $this->person = Person::where('id', $this->supplier->person_id)->firstOrFail();
-        $this->telephone = Telephone::where('person_id', $this->person->id)->firstOrFail();
+        //$this->telephone = Telephone::where('person_id', $this->person->id)->firstOrFail();
 
         $this->orden_detail = OrderDetail::join('units', 'order_details.unit_id', '=', 'units.id')
         ->where('order_id', $this->orden->id)
-        ->get(['order_details.quantity AS cantidad', 'units.name AS unidad', 'order_details.name AS nombre', 'order_details.description AS descripcion', 'order_details.price AS precio', 'order_details.subtotal AS subtotal']);
+        ->get(['order_details.quantity AS cantidad', 'units.name AS unidad','order_details.description AS descripcion', 'order_details.price AS precio', 'order_details.subtotal AS subtotal']);
         $formatterES = new NumberFormatter("es", NumberFormatter::SPELLOUT);
         $this->literal = $formatterES->format($this->orden->total);
 

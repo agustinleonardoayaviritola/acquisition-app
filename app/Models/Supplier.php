@@ -13,6 +13,7 @@ class Supplier extends Model
     'person_id',
     'supplier_category_id',
     'name',
+    'phone_fax',
     'email',
     'address',
     'state',

@@ -1,83 +1,81 @@
 <div>
     <x-slot name="header">
         <div class="font-semibold text-xl text-gray-800 leading-tight">
-            Registrar Pedido
+            Adicionar Nuevo Pedido
         </div>
     </x-slot>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="pt-10 px-10">
-            <h1 class=" text-2xl font-bold">Agregar nueva pedido</h1>
+            <h1 class=" text-2xl font-bold">Datos del pedido</h1>
         </div>
         <form wire:submit.prevent="submit" class="m-10 mt-0 p-4">
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-6 group">
+                    {{-- code --}}
+                    <div class="mt-4 text-sm">
+                        Nro. de Solicitud
+                    </div>
+                    <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="text"
+                        placeholder="Nro de Solicitud" wire:model="code" class="mt-1 block w-full rounded-rm"
+                        required />
+                    @error('code')
+                        <p class="text-red-500 font-semibold my-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                    {{-- end code --}}
                 </div>
-                <div class="w-full md:w-1/2 px-3">
-                
+
+                <div class="relative z-0 w-full mb-6 group">
+                    {{-- issue_date --}}
+                    <div class="mt-4 text-sm">
+                        Fecha de emisión
+                    </div>
+                    <x-jet-input type="date" placeholder="Fecha de emisión" wire:model="issue_date"
+                        class="mt-1 block w-full " required />
+                    @error('issue_date')
+                        <p class="text-red-500 font-semibold my-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                    {{-- end issue_date --}}
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-6 group">
+
+                    {{-- select order_type_id --}}
+                    <div>
+                        <x-jet-label class="mt-4 text-sm" for="order_type_id" value="{{ __('Tipo de Orden') }}" />
+                        <select wire:model="order_type_id" wire:change="onChangeSelectOrderTypes"
+                            class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
+                            required>
+
+                            <option selected>(Seleccionar)</option>
+                            @forelse ($order_types as $order_type)
+                                <option value="{{ $order_type->id }}">
+                                    {{ $order_type->name }}</option>
+                            @empty
+                                <option disabled>Sin registros</option>
+                            @endforelse
+                        </select>
+
+                        @error('order_type_id')
+                            <p class="text-red-500 font-semibold my-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+                    {{-- end select order_type_id --}}
                 </div>
             </div>
 
-
-            {{-- code --}}
-            <div class="mt-4 text-sm">
-                Nro. de Solicitud
-            </div>
-            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="text"
-                placeholder="Nro de Solicitud" wire:model="code"
-                class="mt-1 block w-full rounded-rm" required />
-            @error('code')
-                <p class="text-red-500 font-semibold my-2">
-                    {{ $message }}
-                </p>
-            @enderror
-            {{-- end code --}}
-
-
-            {{-- issue_date --}}
-            <div class="mt-4 text-sm">
-                Fecha de emisión
-            </div>
-            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="date" placeholder="Fecha de emisión"
-                wire:model="issue_date" required />
-            @error('issue_date')
-                <p class="text-red-500 font-semibold my-2">
-                    {{ $message }}
-                </p>
-            @enderror
-            {{-- end issue_date --}}
-
-
-
-            {{-- select order_type_id --}}
-            <div>
-                <x-jet-label class="mt-4 text-sm" for="order_type_id" value="{{ __('Tipo de Orden') }}" />
-                <select wire:model="order_type_id" wire:change="onChangeSelectOrderTypes"
-                    class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
-                    required>
-
-                    <option selected>(Seleccionar)</option>
-                    @forelse ($order_types as $order_type)
-                        <option value="{{ $order_type->id }}">
-                            {{ $order_type->name }}</option>
-                    @empty
-                        <option disabled>Sin registros</option>
-                    @endforelse
-                </select>
-
-                @error('order_type_id')
-                    <p class="text-red-500 font-semibold my-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-            </div>
-            {{-- end select order_type_id --}}
             {{-- delivery_time --}}
             <div class="mt-4 text-sm">
                 Plazo Entrega
             </div>
             <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="number" placeholder="Plazo Entrega"
-                wire:model="delivery_time" required />
+                class=" block w-full mt-1" wire:model="delivery_time" required />
             @error('delivery_time')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}
@@ -140,10 +138,6 @@
                 </p>
             @enderror
             {{-- end application_number --}}
-
-
-
-
 
             {{-- observation --}}
             {{--             <div class="mt-4 text-sm">

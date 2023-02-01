@@ -24,7 +24,7 @@ class OrderDataTable extends LivewireDatatable
     {
         return Order::query()
             ->where('orders.state', '!=', 'ELIMINADO')
-            
+
             ->join('requesting_units', function ($join) {
                 $join->on('requesting_units.id', '=', 'orders.requesting_unit_id');
             })
@@ -37,17 +37,20 @@ class OrderDataTable extends LivewireDatatable
             ->join('order_types', function ($join) {
                 $join->on('order_types.id', '=', 'orders.order_type_id');
             })
+/*             ->join('people as user', function ($join) {
+                $join->on('user.id', '=', 'users.person_id');
+            })->orderBy('orders.application_number', 'ASC'); */
             ->join('people as user', function ($join) {
                 $join->on('user.id', '=', 'users.person_id');
-            })->orderBy('orders.application_number', 'ASC');
+            })->orderBy('orders.issue_date', 'DESC');
     }
     public function columns()
     {
         return [
-            Column::name('application_number')
+/*             Column::name('application_number')
             ->searchable()
-            ->label('Nº Prenumerado'),
-            
+            ->label('Nº Prenumerado'), */
+
             Column::name('code')
             ->searchable()
             ->label('Nº de Solicitud'),
@@ -55,7 +58,7 @@ class OrderDataTable extends LivewireDatatable
             Column::name('order_types.name')
             ->label('Tipo'),
 
-            DateColumn::name('orders.created_at')
+            DateColumn::name('orders.issue_date')
             ->searchable()
             ->label('Fecha Emisión')
             ->format('d/m/Y'),
@@ -93,6 +96,7 @@ class OrderDataTable extends LivewireDatatable
     }
 
     public $unitDeleted;
+    public $details;
     public function toastConfirmDelet($slug)
     {
         $this->unitDeleted = Order::where('slug', $slug)->first();
@@ -108,11 +112,9 @@ class OrderDataTable extends LivewireDatatable
             'confirmButtonColor' => '#A5DC86',
         ]);
     }
-    // Listener para eliminar
     protected $listeners = [
         'confirmed',
     ];
-    //Funcion para confirmar la eliminacion
     public function confirmed()
     {
         if($this->details)

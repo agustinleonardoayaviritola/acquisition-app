@@ -12,7 +12,7 @@
                     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="overflow-hidden">
-                           
+
                                 <table cellspacing="0" class="min-w-full border text-xs">
                                     <tr class="border-b border-r" >
                                         <th colspan="1" align="center" class="border-r">
@@ -24,11 +24,12 @@
                                         </th>
                                         <th colspan="2" valign="middle" class="border-r">
                                             Nro Prenumerado
-                                            {{$orden->application_number}}
+                                            <br>00000{{$orden->application_number}}
                                             <p>&nbsp;</p>
                                             <hr>
                                             Fecha de Emisión
-                                            <hr>{{$orden->issue_date}}
+                                            <br>{{date('d-m-Y', strtotime($orden->issue_date))}}
+
                                         </th>
                                     </tr>
                                     <tr class="border-b">
@@ -37,7 +38,7 @@
                                                 <tr class="border-b">
                                                     <td width="70%" class="border-r">
                                                         <p><strong>Señores(Nombre o Razón Social del Proveedor)</strong></p>
-                                                        <p>{{$person->name}} {{$person->lastname}}</p>
+                                                        <p>{{$supplier->name}}</p>
                                                     </td>
                                                     <td rowspan="2" class="">
                                                         <p><strong>Dirección:</strong></p>
@@ -45,16 +46,21 @@
                                                     </td>
                                                 </tr>
                                                 <tr class="border-b">
-                                                    <td class="border-r"><strong>Persona de Contacto: </strong>{{$supplier->name}}</td>
+                                                    <td class="border-r"><strong>Persona de Contacto: </strong>{{$person->name}} {{$person->lastname}}</td>
                                                 </tr>
                                                 <tr class="">
                                                     <td class="border-r">
-                                                        <strong>Tel/Fax: </strong>{{$telephone->number}}<br />
+                                                        <strong>Tel/Fax: </strong>{{$supplier->phone_fax}}<br />
                                                         <strong>E-mail: </strong>{{$supplier->email}}
                                                     </td>
                                                     <td align="left" class="">
                                                         <strong>Plazo de Entrega: </strong>
-                                                        {{$orden->delivery_time }} días
+                                                        @if($orden->delivery_time === 'INMEDIATA')
+                                                            {{$orden->delivery_time }}
+                                                        @else
+                                                            {{$orden->delivery_time }} días
+                                                        @endif
+
                                                     </td>
                                                 </tr>
                                             </table>
@@ -80,11 +86,11 @@
                                     @foreach ($orden_detail as $item)
                                     <tr class="border-b ">
                                         <td class="border-r min-w-full text-center">{{$item->cantidad}}</td>
-                                       
+
                                         <td class="border-r min-w-full text-center">{{$item->unidad}}</td>
 
                                         <td class="border-r">
-                                            <strong>{{$item->nombre}}:</strong> {{$item->descripcion}}
+                                            {{$item->descripcion}}
                                         </td>
                                         <td class="border-r min-w-full text-center"><?= number_format($item->precio, 2, ',', '.') ?></td>
                                         <td class="border-r min-w-full text-center"><?= number_format($item->subtotal, 2, ',', '.') ?></td>
@@ -109,14 +115,14 @@
                                                     <td width="33%" align="center" class="border-r">
                                                         <strong>Nro de Solicitud de bienes materiales: </strong>
                                                         <br>
-                                                        {{$orden->code}}
+                                                        DF-{{$orden->code}}
                                                     </td>
                                                     <td width="33%" align="center" rowspan="2" class="border-r">
                                                         <strong>APROBACIÓN:</strong>
                                                         <p>&nbsp;</p>
                                                         <p>&nbsp;</p>
                                                         <p>&nbsp;</p>
-                                                        
+
                                                         _______________________________<br />
                                                         DIRECTOR ADMINISTRATIVO
                                                     </td>
@@ -140,8 +146,7 @@
                                     </tr>
                                 </table>
                                 <p style="text-align: justify;">
-                                    <strong class="font-bold">NOTA:</strong> Habiéndose adjuntado los ítems citados en la descripción, agradecemos a Uds. enviarnos a nuestro Almacén en el plazo de entrega ofertado. La factura deberá detallar los ítems adjuntados y el número de la presente Orden de Compra; al NIT del Gobierno Autónomo Departamental de Tarija # 178928029.<br>
-                                    Si los proponentes no entregasen el producto o servicio en el tiempo establecido por la orden de compra u orden de trabajo,
+                                    <strong class="font-bold">NOTA:</strong> Si los proponentes no entregasen el producto o servicio en el tiempo establecido por la orden de compra u orden de trabajo,
                                     seran pasibles a lo que establece el <strong>DS. 0956 Art. 2 Inc. j</strong>
                                 </p>
                                 <p style="text-align: justify;">

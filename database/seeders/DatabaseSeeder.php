@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class);
         $this->call(OrdenTypeSeeder::class);
+        $this->call(OrderCodeSeeder::class);
+        $this->call(RequestingUnitSeeder::class);
+        $this->call(UnitSeeder::class);
+        $this->call(SupplierSeeder::class);
 
     }
 }

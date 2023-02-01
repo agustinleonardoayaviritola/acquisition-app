@@ -1,5 +1,5 @@
 <div class="flex space-x-1 justify-around">
-    @if (Auth::user()->hasAnyRole(['admin']))
+    @if (Auth::user()->hasAnyRole(['admin','superadmin']))
         {{-- print --}}
         <a href="{{ route('order-detail.print', $slug) }}"
             class="p-1 text-cyan-600 hover:bg-cyan-600 hover:text-white rounded-full">
@@ -10,7 +10,7 @@
         </a>
         {{-- end print --}}
     @endif
-    @if (Auth::user()->hasAnyRole(['admin']))
+    @if (Auth::user()->hasAnyRole(['admin','superadmin', 'lector']))
         {{-- detalle --}}
         <a href="{{ route('order-detail.dashboard', $slug) }}"
             class="p-1 text-amber-600 hover:bg-amber-600 hover:text-white rounded-full">
@@ -24,7 +24,7 @@
         {{-- end detalle --}}
     @endif
 
-    @if (Auth::user()->hasAnyRole(['admin']))
+    @if (Auth::user()->hasAnyRole(['admin','superadmin']))
         {{-- edit --}}
         <a href="{{ route('order.update', $slug) }}"
             class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded-full">
@@ -36,7 +36,7 @@
         {{-- end edit --}}
     @endif
 
-    @if (Auth::user()->hasAnyRole(['admin']))
+    @if (Auth::user()->hasAnyRole(['admin','superadmin']))
         {{-- delet --}}
         <button wire:click="toastConfirmDelet('{{ $slug }}')"
             class="p-1 text-red-600 hover:bg-red-600 hover:text-white rounded-full">
