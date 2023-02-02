@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Order;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -22,47 +23,58 @@ class OrderDataTable extends LivewireDatatable
     public function builder()
     {
         return Order::query()
-            ->where('orders.state', '!=', 'DELETED')
-            ->join('applicants', function ($join) {
-                $join->on('applicants.id', '=', 'orders.applicant_id');
+            ->where('orders.state', '!=', 'ELIMINADO')
+
+            ->join('requesting_units', function ($join) {
+                $join->on('requesting_units.id', '=', 'orders.requesting_unit_id');
             })
             ->join('suppliers', function ($join) {
                 $join->on('suppliers.id', '=', 'orders.supplier_id');
             })
-            ->join('people', function ($join) {
-                $join->on('people.id', '=', 'suppliers.person_id');
+            ->join('users', function ($join) {
+                $join->on('users.id', '=', 'orders.user_id');
             })
-            ->join('people as person', function ($join) {
-                $join->on('person.id', '=', 'applicants.person_id');
-            });
+            ->join('order_types', function ($join) {
+                $join->on('order_types.id', '=', 'orders.order_type_id');
+            })
+/*             ->join('people as user', function ($join) {
+                $join->on('user.id', '=', 'users.person_id');
+            })->orderBy('orders.application_number', 'ASC'); */
+            ->join('people as user', function ($join) {
+                $join->on('user.id', '=', 'users.person_id');
+            })->orderBy('orders.issue_date', 'DESC');
     }
     public function columns()
     {
         return [
-
-            Column::callback(['person.name', 'person.lastname'], function ($name, $lastname) {
-                return $name . ' ' . $lastname;
-            })
-                ->label('Solicitante'),
-
-            Column::name('application_number')
-                ->searchable()
-                ->label('NRO PRENUMERADO'),
+/*             Column::name('application_number')
+            ->searchable()
+            ->label('Nº Prenumerado'), */
 
             Column::name('code')
-                ->searchable()
-                ->label('Nnr de Solicitud'),
+            ->searchable()
+            ->label('Nº de Solicitud'),
 
-            Column::callback(['people.name', 'people.lastname'], function ($name, $lastname) {
-                return $name . ' ' . $lastname;
-            })
-                ->label('Proveedor'),
+            Column::name('order_types.name')
+            ->label('Tipo'),
+
+            DateColumn::name('orders.issue_date')
+            ->searchable()
+            ->label('Fecha Emisión')
+            ->format('d/m/Y'),
+
+            Column::name('requesting_units.name')
+            ->label('Unidad Solicitante'),
 
             Column::name('total')
-                ->searchable()
-                ->label('Total'),
+            ->label('Costo Total'),
 
-            Column::callback(['state'], function ($state) {
+/*             Column::callback(['user.name', 'user.lastname'], function ($name, $lastname) {
+                    return $name . ' ' . $lastname;
+                })
+                    ->label('Usuario'), */
+
+/*             Column::callback(['state'], function ($state) {
                 return view('components.datatables.state-data-table', ['state' => $state]);
             })
                 ->exportCallback(function ($state) {
@@ -73,7 +85,8 @@ class OrderDataTable extends LivewireDatatable
                 ->filterable([
                     'PENDIENTE',
                     'ENTREGADO'
-                ]),
+                ]), */
+
 
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.order.order-table-actions', ['slug' => $slug]);
@@ -83,9 +96,11 @@ class OrderDataTable extends LivewireDatatable
     }
 
     public $unitDeleted;
+    public $details;
     public function toastConfirmDelet($slug)
     {
         $this->unitDeleted = Order::where('slug', $slug)->first();
+        $this->details = OrderDetail::where('order_id', $this->unitDeleted->id)->get();
         $this->confirm(__('¿Estás seguro de que deseas eliminar el registro?'), [
             'icon' => 'warning',
             'position' =>  'center',
@@ -97,20 +112,20 @@ class OrderDataTable extends LivewireDatatable
             'confirmButtonColor' => '#A5DC86',
         ]);
     }
-    // Listener para eliminar
     protected $listeners = [
         'confirmed',
-        
     ];
-    //Funcion para confirmar la eliminacion
     public function confirmed()
     {
-        
+        if($this->details)
+        {
+            foreach ($this->details as $item)
+            {
+                $item->delete();
+            }
+        }
         if ($this->unitDeleted) {
-            //Asignando estado DELETED
-            $this->unitDeleted->state = "DELETED";
-            //Guardando el registro
-            $this->unitDeleted->update();
+            $this->unitDeleted->delete();
         }
     }
 }

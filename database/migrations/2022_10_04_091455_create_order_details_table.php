@@ -17,13 +17,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->string('name');
-            $table->integer('quantity');
-            $table->decimal('price', 8, 2);
-            $table->decimal('subtotal', 8, 2);
-            $table->string('description');
+            $table->integer('quantity')->nullable();
+            $table->decimal('price', 8, 2)->nullable();
+            $table->decimal('subtotal', 8, 2)->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();
             $table->foreign('order_id')->references('id')->on('orders')->onDedelete('cascade');
             $table->foreign('unit_id')->references('id')->on('units')->onDedelete('cascade');

@@ -19,7 +19,7 @@ class OrderTypeUpdate extends Component
         $this->ordertype = OrderType::where('slug', $slug)->firstOrFail();
         if ($this->ordertype) {
             $this->name = $this->ordertype->name;
-           // $this->description = $this->unit->description;
+           $this->description = $this->ordertype->description;
             $this->state = $this->ordertype->state;
         }
     }
@@ -38,7 +38,7 @@ class OrderTypeUpdate extends Component
         //Actualizar registro
         $this->ordertype->update([
             'name' => $this->name,
-           // 'description' => $this->description,
+            'description' => $this->description,
             'state' => $this->state,
         ]);
         //Llamando Alerta

@@ -10,7 +10,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OrderDetailUpdate extends Component
 {
-    use LivewireAlert; 
+    use LivewireAlert;
     public $units;
     public $unit_id;
     public $quantity;
@@ -19,10 +19,13 @@ class OrderDetailUpdate extends Component
     public $description;
     public $order;
     public $orderdetails;
+    public $orderdetail;
+    public $state;
+
 
     public function mount($slug)
     {
-        $this->units = Unit::all()->where('state', 'ACTIVE');
+        $this->units = Unit::all()->where('state', 'ACTIVO');
         $this->orderdetail = OrderDetail::where('slug', $slug)->firstOrFail();
         if ($this->orderdetail) {
             $this->unit_id = $this->orderdetail->unit_id;
@@ -32,34 +35,37 @@ class OrderDetailUpdate extends Component
             $this->state = $this->orderdetail->state;
         }
     }
-    
+
     protected $rules = [
         'state' => 'required',
     ];
     public function submit()
     {
         $this->validate();
-
-        //calcular subtotal
         $this->subtotal = $this->price * $this->quantity;
-        
-        //Actualizar registro
         $this->orderdetail->update([
             'unit_id' => $this->unit_id,
             'quantity' => $this->quantity,
             'price' => $this->price,
             'subtotal' => $this->subtotal,
             'description' => $this->description,
-            'state' => $this->state,
         ]);
-        
+
         $this->updatetotal($this->orderdetail->order_id);
-        //Llamando Alerta
-        $this->alert('success', 'Registro actualizado correctamente', [
-            'toast' => true,
-            'position' => 'top-end',
+        $this->confirm('Registro actualizado correctamente', [
+            'icon' => 'success',
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'showCancelButton' => false,
+            'cancelButtonText' => 'Cancelar',
+            'confirmButtonText' => 'Aceptar',
+            'onConfirmed' => 'confirmed',
         ]);
     }
+    protected $listeners = [
+        'confirmed',
+    ];
     public function updatetotal($order_id){
         //dd($order_id);
         $this->order = Order::where('id', $order_id)->firstOrFail();
@@ -69,7 +75,7 @@ class OrderDetailUpdate extends Component
         $this->order->total = 0;
         foreach ($this->orderdetails  as $valor) {
             //dd($valor);
-            if ($valor->state == 'ACTIVE') {
+            if ($valor->state == 'ACTIVO') {
                 $this->order->total = $this->order->total + $valor->subtotal;
             }
         }
@@ -80,5 +86,9 @@ class OrderDetailUpdate extends Component
     public function showInfoUnit()
     {
         $this->units = Unit::all();
+    }
+    public function confirmed()
+    {
+        return redirect()->route('order-detail.dashboard', [$this->order->slug]);
     }
 }

@@ -1,5 +1,5 @@
 <div class="flex space-x-1 justify-around">
-    @if (Auth::user()->hasAnyRole(['admin']))
+    @if (Auth::user()->hasAnyRole(['admin','superadmin']))
     {{-- edit --}}
     <a href="{{ route('applicant.update', $slug) }}"
         class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded-full">

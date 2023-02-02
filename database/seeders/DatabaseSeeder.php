@@ -15,16 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RoleTableSeeder::class);
-/*         \App\Models\Beneficiary::factory(7263)->update();
-        \App\Models\Beneficiary::factory()->update([
-             'user_id' => 1
-        ]); */
-/* 
-        App\Models\Beneficiary::chunk(7263, function ($beneficiaries){
-            foreach($beneficiaries as $beneficiary){
-                $beneficiary->user_id = 1;
-                $beneficiary->save();
-            }
-        }); */
+        $this->call(OrdenTypeSeeder::class);
+        $this->call(OrderCodeSeeder::class);
+        $this->call(RequestingUnitSeeder::class);
+        $this->call(UnitSeeder::class);
+        $this->call(SupplierSeeder::class);
+
     }
 }

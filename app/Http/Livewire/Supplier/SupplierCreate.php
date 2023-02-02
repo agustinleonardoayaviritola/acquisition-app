@@ -27,7 +27,7 @@ class SupplierCreate extends Component
     public $name_supplier;
     public $email;
     public $address;
-    public $state = "ACTIVE";
+    public $state = "ACTIVO";
     public $slug;
 
     public $person;
@@ -36,7 +36,7 @@ class SupplierCreate extends Component
 
     public function mount()
     {
-        $this->suppliercategories = SupplierCategory::all()->where('state', 'ACTIVE');
+        $this->suppliercategories = SupplierCategory::all()->where('state', 'ACTIVO');
     }
 
     public function render()
@@ -49,9 +49,7 @@ class SupplierCreate extends Component
         'supplier_category_id' => 'required',
         'number' => 'required',
         'name' => 'required|max:100|min:2|unique:suppliers,name',
-        'lastname' => 'required',
         'name_supplier' => 'required',
-        'email' => 'required',
         'address' => 'required',
         'state' => 'required',
 
@@ -66,15 +64,15 @@ class SupplierCreate extends Component
         //Creando registro
         $this->person = Person::create([
             'name' => $this->name,
-            'lastname' => $this->lastname,
-            'state' => 'ACTIVE',
+            //'lastname' => $this->lastname,
+            'state' => 'ACTIVO',
             //generar slug
             'slug' => Str::uuid(),
         ]);
         $this->telephone = Telephone::create([
             'person_id' => $this->person->id,
             'number' => $this->number,
-            'state' => 'ACTIVE',
+            'state' => 'ACTIVO',
         ]);
         Supplier::create([
             'person_id' => $this->person->id,

@@ -9,8 +9,11 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class SupplierCategoryUpdate extends Component
 {
-    use LivewireAlert; 
-
+    use LivewireAlert;
+    public $Suppliercategory;
+    public $name;
+    public $description;
+    public $state;
 
     public function render()
     {
@@ -50,6 +53,6 @@ class SupplierCategoryUpdate extends Component
             'position' => 'top-end',
         ]);
 
-         
+
     }
 }

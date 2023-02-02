@@ -38,14 +38,14 @@
             <x-jet-label class="mt-4 text-sm" value="Estado" />
             <div class="mt-4 space-y-2">
                 <div class="flex items-center">
-                    <input wire:model="state" value="ACTIVE" type="radio"
+                    <input wire:model="state" value="ACTIVO" type="radio"
                         class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
                     <label for="push_everything" class="ml-2 block text-sm font-medium text-gray-700">
                         Activo
                     </label>
                 </div>
                 <div class="flex items-center">
-                    <input wire:model="state" value="INACTIVE" type="radio"
+                    <input wire:model="state" value="INACTVO" type="radio"
                         class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
                     <label for="push_email" class="ml-2 block text-sm font-medium text-gray-700">
                         Inactivo

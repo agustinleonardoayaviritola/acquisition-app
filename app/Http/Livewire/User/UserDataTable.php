@@ -25,7 +25,7 @@ class UserDataTable extends LivewireDatatable
     {
 
         return (User::query()
-        ->where('state', '!=', 'DELETED')
+        ->where('state', '!=', 'ELIMINADO')
         ->join('people as person', function ($join) {
             $join->on('person.id', '=', 'users.person_id');
         }));
@@ -52,8 +52,8 @@ class UserDataTable extends LivewireDatatable
             })
                 ->label('Estado')
                 ->filterable([
-                    'ACTIVE',
-                    'INACTIVE'
+                    'ACTIVO',
+                    'INACTIVO'
                 ]),
             Column::callback(['slug'], function ($slug) {
                 return view('livewire.user.user-table-actions', ['slug' => $slug]);

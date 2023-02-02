@@ -14,10 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('requesting_units', function (Blueprint $table) {
-            $table->id(); $table->string('name')->nullable();
-            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');
+            $table->id();
+            $table->unsignedBigInteger('location_id')->nullable();
+            $table->string('name')->nullable();
+            $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();
             $table->timestamps();
+            $table->foreign('location_id')->references('id')->on('locations')->onDedelete('cascade');
+
         });
     }
 

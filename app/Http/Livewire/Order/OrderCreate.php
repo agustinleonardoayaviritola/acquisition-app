@@ -3,18 +3,20 @@
 namespace App\Http\Livewire\Order;
 
 use App\Models\OrderType;
-use App\Models\Applicant;
+use App\Models\RequestingUnit;
+use App\Models\Person;
 use App\Models\Supplier;
 use Livewire\Component;
 use App\Models\Order;
+use App\Models\OrderCode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OrderCreate extends Component
 {
-    use LivewireAlert; 
-    
+    use LivewireAlert;
+
     public $order;
     public $application_number;
     public $issue_date;
@@ -34,52 +36,73 @@ class OrderCreate extends Component
 
     public $code;
 
-    public $applicants;
-    public $applicant_id;
+    public $requestingunits;
+    public $requestingunit_id;
     public $requesting_unit;
 
+    public $order_codes;
+    public $order_code_id = 2;
 
     public function mount()
     {
-        $this->suppliers = Supplier::all()->where('state', 'ACTIVE');
-        $this->order_types = OrderType::all()->where('state', 'ACTIVE');
-        $this->applicants = Applicant::all()->where('state', 'ACTIVE');
-        //Limpiando carrito
+        $this->suppliers = Supplier::all()->where('state', 'ACTIVO');
+        $this->order_types = OrderType::all()->where('state', 'ACTIVO');
+        $this->requestingunits = RequestingUnit::all()->where('state', 'ACTIVO');
 
-     
     }
     public function render()
     {
         return view('livewire.order.order-create');
     }
     protected $rules = [
-        'code' => 'required|max:100|min:2|unique:orders,code',
+        'code' => 'required',
+        'order_code_id' => 'required',
         'application_number' => 'required|max:100|min:2|unique:orders,application_number',
         'state' => 'required',
     ];
-    //Metodo que llama el formulario
     public function submit()
     {
         $this->validate();
-        $this->order = Order::create([
-            'supplier_id' => $this->supplier_id,
-            'order_type_id' => $this->order_type_id,
-            'code' => $this->code,
-            'applicant_id' => $this->applicant_id,
-            'application_number' => $this->application_number,
-            'issue_date' => $this->issue_date,
-            'delivery_time' => $this->delivery_time,
-            'observation' => $this->observation,
-            'state' => $this->state,
-            'total' => 0,
-            'slug' => Str::uuid(),
-            'state' => 'PENDIENTE',
-        ]);
 
-        //Llamando a funcion para limpiar inputs
+
+        if($this->delivery_time == 0) {
+            $this->order = Order::create([
+                'supplier_id' => $this->supplier_id,
+                'order_type_id' => $this->order_type_id,
+                'order_code_id' => $this->order_code_id,
+                'requesting_unit_id' => $this->requestingunit_id,
+                'user_id' => Auth()->User()->id,
+                'code' =>  $this->code,
+                'application_number' => $this->application_number,
+                'issue_date' => $this->issue_date,
+                'delivery_time' => 'INMEDIATA',
+                'observation' => $this->observation,
+                'state' => $this->state,
+                'total' => 0,
+                'slug' => Str::uuid(),
+                'state' => 'PENDIENTE',
+            ]);
+        }
+        else {
+            $this->order = Order::create([
+                'supplier_id' => $this->supplier_id,
+                'order_type_id' => $this->order_type_id,
+                'order_code_id' => $this->order_code_id,
+                'requesting_unit_id' => $this->requestingunit_id,
+                'user_id' => Auth()->User()->id,
+                'code' =>  $this->code,
+                'application_number' => $this->application_number,
+                'issue_date' => $this->issue_date,
+                'delivery_time' => $this->delivery_time,
+                'observation' => $this->observation,
+                'state' => $this->state,
+                'total' => 0,
+                'slug' => Str::uuid(),
+                'state' => 'PENDIENTE',
+            ]);
+        }
+
         $this->cleanInputs();
-
-        //Mostrar alerta de registro
         $this->confirm('Registro creado correctamente', [
             'icon' => 'success',
             'toast' => false,
@@ -92,32 +115,21 @@ class OrderCreate extends Component
         ]);
     }
 
-    //Funcion para limpiar imputs
     public function cleanInputs()
     {
         $this->total = "";
     }
-
-    //Escuchadores para botones de alertas
     protected $listeners = [
         'confirmed',
     ];
-
-    //Funcion que llama la alerta para redigir al dashboar
     public function confirmed()
     {
         return redirect()->route('order.dashboard');
     }
-    public function showInfoSupplier()
-    {
-        $this->suppliers = Supplier::all();
-    }
     public function onChangeSelectOrderTypes()
     {
-        $this->order_types = OrderType::all();
+        $this->order_types = OrderType::all()->where('state', 'ACTIVO');
     }
-    public function onChangeSelectApplicants()
-    {
-        $this->applicants = Applicant::all();
-    }
+
+
 }

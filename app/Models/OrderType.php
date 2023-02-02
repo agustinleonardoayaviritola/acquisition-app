@@ -10,6 +10,7 @@ class OrderType extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'description',
         'state',
         'slug',
     ];

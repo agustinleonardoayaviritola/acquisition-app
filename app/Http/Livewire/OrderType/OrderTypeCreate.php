@@ -12,8 +12,9 @@ class OrderTypeCreate extends Component
     use LivewireAlert; 
     //varibles para propiedades
     public $name;
-    public $state = "ACTIVE";
+    public $state = "ACTIVO";
     public $slug;
+    public $description;
 
     public function render()
     {
@@ -35,6 +36,7 @@ class OrderTypeCreate extends Component
         //Creando registro
         OrderType::create([
             'name' => $this->name,
+            'description' => $this->description,
             //generar slug
             'state' => $this->state,
             'slug' => Str::uuid(),

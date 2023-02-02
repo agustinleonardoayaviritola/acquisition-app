@@ -20,7 +20,7 @@ class UserCreate extends Component
     // user
     public $email;
     public $password;
-    public $state = 'ACTIVE';
+    public $state = 'ACTIVO';
 
     //Rol
     public $role_id;

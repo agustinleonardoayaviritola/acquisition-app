@@ -11,11 +11,10 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class SupplierCategoryCreate extends Component
 {
-    use LivewireAlert; 
-    //varibles para propiedades
+    use LivewireAlert;
     public $name;
     public $description;
-    public $state = "ACTIVE";
+    public $state = "ACTIVO";
     public $slug;
 
 
@@ -28,28 +27,18 @@ class SupplierCategoryCreate extends Component
         'state' => 'required',
     ];
 
-    //Metodo que llama el formulario
     public function submit()
     {
 
-        //Funcion para validar mediante las reglas
-        $this->validate();
 
-        //Creando registro
+        $this->validate();
         SupplierCategory::create([
-            'user_id' => Auth()->User()->id,
             'name' => $this->name,
             'description' => $this->description,
-            //generar slug
             'state' => $this->state,
             'slug' => Str::uuid(),
         ]);
-
-
-        //Llamando a funcion para limpiar inputs
         $this->cleanInputs();
-
-        //Mostrar alerta de registro
         $this->confirm('Registro creado correctamente', [
             'icon' => 'success',
             'toast' => false,
@@ -62,19 +51,16 @@ class SupplierCategoryCreate extends Component
         ]);
     }
 
-    //Funcion para limpiar imputs
     public function cleanInputs()
     {
         $this->name = "";
         $this->description = "";
     }
-    
-    //Escuchadores para botones de alertas
+
     protected $listeners = [
         'confirmed',
     ];
 
-    //Funcion que llama la alerta para redigir al dashboard
     public function confirmed()
     {
         return redirect()->route('supplier-category.dashboard');

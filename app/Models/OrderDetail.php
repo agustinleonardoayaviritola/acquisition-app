@@ -12,7 +12,6 @@ class OrderDetail extends Model
         'order_id',
         'unit_id',
         'quantity',
-        'name',
         'price',
         'subtotal',
         'description',
