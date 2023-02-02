@@ -18,6 +18,10 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
+
+
+
+        
         $SupplierCategory1 = new SupplierCategory(); $SupplierCategory1->name = 'ROPA DE TRABAJO Y SEGURIDAD'; $SupplierCategory1->state = 'ACTIVO'; $SupplierCategory1->slug = Str::uuid();$SupplierCategory1->save();
         $SupplierCategory2 = new SupplierCategory(); $SupplierCategory2->name = 'ACCESORIOS DE COMPUTACION'; $SupplierCategory2->state = 'ACTIVO'; $SupplierCategory2->slug = Str::uuid();$SupplierCategory2->save();
         $SupplierCategory3 = new SupplierCategory(); $SupplierCategory3->name = 'MATERIAL DE ESCRITORIO'; $SupplierCategory3->state = 'ACTIVO'; $SupplierCategory3->slug = Str::uuid();$SupplierCategory3->save();
