@@ -41,40 +41,38 @@
                     {{-- end issue_date --}}
                 </div>
             </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div class="relative z-0 w-full mb-6 group">
+            <div class="relative z-0 w-full mb-6 group">
 
-                    {{-- select order_type_id --}}
-                    <div>
-                        <x-jet-label class="mt-4 text-sm" for="order_type_id" value="{{ __('Tipo de Orden') }}" />
-                        <select wire:model="order_type_id" wire:change="onChangeSelectOrderTypes"
-                            class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
-                            required>
+                {{-- select order_type_id --}}
+                <div>
+                    <x-jet-label class="mt-4 text-sm" for="order_type_id" value="{{ __('Tipo de Orden') }}" />
+                    <select wire:model="order_type_id" wire:change="onChangeSelectOrderTypes"
+                        class="border-gray-300 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 shadow-sm mt-1 block w-full rounded-rm"
+                        required>
 
-                            <option selected>(Seleccionar)</option>
-                            @forelse ($order_types as $order_type)
-                                <option value="{{ $order_type->id }}">
-                                    {{ $order_type->name }}</option>
-                            @empty
-                                <option disabled>Sin registros</option>
-                            @endforelse
-                        </select>
+                        <option selected>(Seleccionar)</option>
+                        @forelse ($order_types as $order_type)
+                            <option value="{{ $order_type->id }}">
+                                {{ $order_type->name }}</option>
+                        @empty
+                            <option disabled>Sin registros</option>
+                        @endforelse
+                    </select>
 
-                        @error('order_type_id')
-                            <p class="text-red-500 font-semibold my-2">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-                    {{-- end select order_type_id --}}
+                    @error('order_type_id')
+                        <p class="text-red-500 font-semibold my-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
+                {{-- end select order_type_id --}}
             </div>
 
             {{-- delivery_time --}}
             <div class="mt-4 text-sm">
                 Plazo Entrega
             </div>
-            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="number" placeholder="Plazo Entrega"
+            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" min="0" type="number" placeholder="Plazo Entrega"
                 class=" block w-full mt-1" wire:model="delivery_time" required />
             @error('delivery_time')
                 <p class="text-red-500 font-semibold my-2">
@@ -131,7 +129,7 @@
                 Nro Prenumerado
             </div>
             <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="number" placeholder="Nro Prenumerado"
-                wire:model="application_number" class="mt-1 block w-full rounded-rm" required />
+                wire:model="application_number" class="mt-1 block w-full rounded-rm"  />
             @error('application_number')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}
