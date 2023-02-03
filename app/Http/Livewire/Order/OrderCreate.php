@@ -57,7 +57,6 @@ class OrderCreate extends Component
     protected $rules = [
         'code' => 'required',
         'order_code_id' => 'required',
-        //'application_number' => 'required|max:100|min:2|unique:orders,application_number',
         'state' => 'required',
     ];
     public function submit()

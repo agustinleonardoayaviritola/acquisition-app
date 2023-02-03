@@ -74,7 +74,7 @@
             <div class="mt-4 text-sm">
                 Plazo Entrega
             </div>
-            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="number" placeholder="Plazo Entrega"
+            <x-jet-input onkeyup="this.value = this.value.toUpperCase();" min="0" type="number" placeholder="Plazo Entrega"
                 class=" block w-full mt-1" wire:model="delivery_time" required />
             @error('delivery_time')
                 <p class="text-red-500 font-semibold my-2">
@@ -131,7 +131,7 @@
                 Nro Prenumerado
             </div>
             <x-jet-input onkeyup="this.value = this.value.toUpperCase();" type="number" placeholder="Nro Prenumerado"
-                wire:model="application_number" class="mt-1 block w-full rounded-rm" required />
+                wire:model="application_number" class="mt-1 block w-full rounded-rm" />
             @error('application_number')
                 <p class="text-red-500 font-semibold my-2">
                     {{ $message }}

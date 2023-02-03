@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->unsignedBigInteger('requesting_unit_id'); //unidad solicitante
             $table->unsignedBigInteger('user_id'); //usuario
-            $table->integer('application_number')->nullable();
+            $table->string('application_number')->nullable();
             $table->date('issue_date')->nullable();
             $table->string('delivery_time')->nullable();
             $table->string('observation')->nullable();
