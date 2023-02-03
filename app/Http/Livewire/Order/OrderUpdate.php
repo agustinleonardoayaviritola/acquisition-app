@@ -63,7 +63,6 @@ class OrderUpdate extends Component
     }
     protected $rules = [
         'code' => 'required|max:15|min:4|unique:orders,code',
-        'state' => 'required',
     ];
     public function submit()
     {

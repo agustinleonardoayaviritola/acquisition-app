@@ -448,7 +448,8 @@
                         class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
                         <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-primary-800">
 
-
+                            <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-full dark-mode:bg-transparent dark-mode:hover:bg-primary-600 dark-mode:focus:bg-primary-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 "
+                            href="{{ route('profile.show') }}">Perfil</a>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-full dark-mode:bg-transparent dark-mode:hover:bg-primary-600 dark-mode:focus:bg-primary-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-primary-700 focus:text-primary-700 hover:bg-primary-200 "

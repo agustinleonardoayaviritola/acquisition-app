@@ -105,7 +105,7 @@
                                     </tr>
                                     <tr class="border-b">
                                         <td colspan="5" align="right" class="border-r" height="40">
-                                            <p><strong>SON: </strong>{{$literal}} 00/100 Bolivianos.-</p>
+                                            <p class="uppercase"><strong>SON: </strong>{{$integer_words}} {{$decimal}}/100 BOLIVIANOS.-</p>
                                         </td>
                                     </tr>
                                     <tr class="">

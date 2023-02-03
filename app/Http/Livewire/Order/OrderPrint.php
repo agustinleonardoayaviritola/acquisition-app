@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\RequestingUnit;
 use App\Models\OrderType;
 use \NumberFormatter;
+use \Numbers_Words;
 class OrderPrint extends Component
 {
     public $orden;
@@ -28,6 +29,10 @@ class OrderPrint extends Component
     public $person;
     public $telephone;
     public $orden_detail;
+    //////
+
+    public $integer_words;
+    public $decimal;
     public function render()
     {
         return view('livewire.order.order-print');
@@ -41,20 +46,20 @@ class OrderPrint extends Component
         $this->peson_user = Person::where('id', $this->user->person_id)->firstOrFail();
 
         $this->applicant = RequestingUnit::where('id', $this->orden->requesting_unit_id)->firstOrFail();
-        //$this->peson_applicant = Person::where('id', $this->applicant->person_id)->firstOrFail();
         $this->unit_applicant = RequestingUnit::where('id', $this->orden->requesting_unit_id)->firstOrFail();
-        //$this->applicant_telephone = Telephone::where('person_id', $this->peson_applicant->id)->firstOrFail();
 
         $this->supplier = Supplier::where('id', $this->orden->supplier_id)->firstOrFail();
         $this->person = Person::where('id', $this->supplier->person_id)->firstOrFail();
-        //$this->telephone = Telephone::where('person_id', $this->person->id)->firstOrFail();
 
         $this->orden_detail = OrderDetail::join('units', 'order_details.unit_id', '=', 'units.id')
         ->where('order_id', $this->orden->id)
         ->get(['order_details.quantity AS cantidad', 'units.name AS unidad','order_details.description AS descripcion', 'order_details.price AS precio', 'order_details.subtotal AS subtotal']);
+        ////
         $formatterES = new NumberFormatter("es", NumberFormatter::SPELLOUT);
-        $this->literal = $formatterES->format($this->orden->total);
-
+        $formatted_number = number_format($this->orden->total, 2,'.',',');
+        list($integer, $this->decimal) = explode('.', $formatted_number);
+        $num=str_replace(',','',$integer);
+        $this->integer_words = $formatterES->format($num);
     }
 
 
