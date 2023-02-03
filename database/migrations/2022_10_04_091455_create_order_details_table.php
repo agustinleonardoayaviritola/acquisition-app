@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->decimal('subtotal', 8, 2)->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
             $table->enum('state', ['ACTIVO', 'INACTIVO', 'ELIMINADO'])->default('ACTIVO');
             $table->uuid('slug')->unique();

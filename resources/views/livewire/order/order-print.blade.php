@@ -24,7 +24,7 @@
                                         </th>
                                         <th colspan="2" valign="middle" class="border-r">
                                             Nro Prenumerado
-                                            <br>00000{{$orden->application_number}}
+                                            <br>{{$orden->application_number}}
                                             <p>&nbsp;</p>
                                             <hr>
                                             Fecha de Emisión
